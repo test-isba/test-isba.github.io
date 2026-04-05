@@ -53,12 +53,17 @@ router.post('/generate', validationRules, async (req, res) => {
   };
 
   try {
+    console.log(`[generate] START — niche: ${niche.id}, business: ${formData.businessName}`);
+    const t0 = Date.now();
+
     const aiContent = await generateSiteContent(formData, niche);
     if (!aiContent) throw new Error('generateSiteContent returned null');
     aiContent.niche = niche;
+    console.log(`[generate] Groq OK — ${Date.now() - t0}ms`);
 
     const sessionId = crypto.randomUUID();
     buildSite(sessionId, aiContent, formData, niche);
+    console.log(`[generate] Build OK — ${Date.now() - t0}ms total`);
 
     res.json({
       id: sessionId,
