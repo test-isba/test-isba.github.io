@@ -49,7 +49,7 @@ app.use('/api', apiLimiter, generateRouter);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Fallback SPA
-app.get('/{*splat}', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
