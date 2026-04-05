@@ -55,6 +55,7 @@ router.post('/generate', validationRules, async (req, res) => {
 
   try {
     const aiContent = await generateSiteContent(formData, niche);
+    if (!aiContent) throw new Error('generateSiteContent returned null');
     aiContent.niche = niche;
 
     const sessionId = uuidv4();
@@ -66,7 +67,10 @@ router.post('/generate', validationRules, async (req, res) => {
       download_url: `/api/download/${sessionId}`
     });
   } catch (err) {
-    console.error('[generate]', err.message);
+    console.error('[generate] FULL ERROR:', err.stack || err.message);
+    if (err.message.includes('401') || err.message.includes('invalid_api_key')) {
+      return res.status(401).json({ error: 'Clé API Groq invalide. Vérifiez GROQ_API_KEY dans votre .env.' });
+    }
     if (err.message.includes('JSON')) {
       return res.status(500).json({ error: 'La génération a échoué. Réessayez.' });
     }

@@ -51,7 +51,7 @@ app.get('/{*splat}', (req, res) => {
 // Démarrage
 app.listen(PORT, () => {
   console.log(`Générateur de sites démarré sur http://localhost:${PORT}`);
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.warn('ATTENTION : ANTHROPIC_API_KEY manquante — ajoutez-la dans .env');
+  if (!process.env.GROQ_API_KEY) {
+    console.warn('ATTENTION : GROQ_API_KEY manquante — ajoutez-la dans .env');
   }
 });

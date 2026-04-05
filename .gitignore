@@ -6,3 +6,8 @@ tmp/
 # Claude
 tasks/
 .claude/
+
+# Claude Code
+CLAUDE.md
+tasks/
+.claude/

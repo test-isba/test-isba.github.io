@@ -1,25 +1,21 @@
 'use strict';
 
-const Anthropic = require('@anthropic-ai/sdk');
+const Groq = require('groq-sdk');
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const client = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 async function generateSiteContent(formData, niche) {
-  const prompt = buildPrompt(formData, niche);
-
-  const message = await client.messages.create({
-    model: 'claude-haiku-4-5-20251001',
+  const response = await client.chat.completions.create({
+    model: 'llama-3.3-70b-versatile',
     max_tokens: 4096,
+    temperature: 0.7,
     messages: [
-      {
-        role: 'user',
-        content: prompt
-      }
-    ],
-    system: buildSystemPrompt()
+      { role: 'system', content: buildSystemPrompt() },
+      { role: 'user', content: buildPrompt(formData, niche) }
+    ]
   });
 
-  const raw = message.content[0].text;
+  const raw = response.choices[0].message.content;
   return parseJSON(raw);
 }
 
@@ -123,7 +119,7 @@ Génère un JSON avec cette structure EXACTE (tous les champs sont obligatoires)
 function parseJSON(raw) {
   const match = raw.match(/\{[\s\S]*\}/);
   if (!match) {
-    throw new Error('Claude n\'a pas retourné de JSON valide');
+    throw new Error('Le modèle n\'a pas retourné de JSON valide');
   }
   return JSON.parse(match[0]);
 }
