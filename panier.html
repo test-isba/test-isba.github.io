@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panier — Les Portes de l'Isba</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+<div class="nav-spacer"></div>
+
+<div class="page-hero">
+  <p class="page-hero-eyebrow">Finaliser</p>
+  <h1>Votre Panier</h1>
+  <p>Vérifiez votre commande avant de procéder au paiement.</p>
+</div>
+
+<section>
+  <div class="container">
+    <div id="cart-empty" style="text-align:center;padding:64px 0;">
+      <div style="font-size:3rem;margin-bottom:20px;"></div>
+      <h3 style="margin-bottom:12px;">Votre panier est vide</h3>
+      <p style="color:var(--text-muted);margin-bottom:28px;">Choisissez une aventure et ajoutez-la à votre panier.</p>
+      <a href="reservation.html" class="btn btn-gold">Réserver une session</a>
+    </div>
+
+    <div id="cart-content" style="display:none;">
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start;">
+
+        <!-- Articles -->
+        <div>
+          <h3 style="margin-bottom:24px;font-size:1rem;color:var(--text-muted);">Articles</h3>
+
+          <div id="cart-items">
+            <!-- Exemple d'article — généré dynamiquement -->
+            <div class="cart-item" data-price="68">
+              <img src="images/heros-de-midgard.jpg" class="cart-item-img"
+                   onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
+              <div class="cart-item-info">
+                <h4>Héros de Midgard</h4>
+                <p>Samedi 12 avril 2025 — 16h00 · 4 joueurs</p>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+                <span class="cart-item-price">68 €</span>
+                <button onclick="this.closest('.cart-item').remove(); updateCartDisplay();"
+                        style="color:var(--text-dim);font-size:.75rem;transition:color var(--transition);"
+                        onmouseover="this.style.color='var(--error)'"
+                        onmouseout="this.style.color='var(--text-dim)'">
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bon cadeau -->
+          <div style="margin-top:24px;padding:20px;background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);">
+            <h4 style="color:var(--gold);margin-bottom:12px;font-size:.9rem;">Bon cadeau / Code promo</h4>
+            <div style="display:flex;gap:10px;">
+              <input type="text" class="form-input" placeholder="Entrez votre code" style="flex:1;">
+              <button class="btn btn-outline btn-sm">Appliquer</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Résumé -->
+        <div style="position:sticky;top:calc(var(--nav-h) + 20px);">
+          <div class="cart-summary">
+            <h3 style="margin-bottom:20px;font-size:1rem;">Résumé de la commande</h3>
+            <div class="cart-summary-row">
+              <span>Sous-total</span>
+              <span id="cart-subtotal">68,00 €</span>
+            </div>
+            <div class="cart-summary-row">
+              <span>Réduction</span>
+              <span id="cart-discount" style="color:#4ade80;">— €</span>
+            </div>
+            <div class="cart-summary-row total">
+              <span>Total</span>
+              <span id="cart-total">68,00 €</span>
+            </div>
+
+            <div style="margin:20px 0;padding:16px;background:var(--bg-3);border-radius:var(--radius);border:1.5px dashed var(--border);">
+              <p style="font-size:.8rem;color:var(--text-muted);text-align:center;">
+                Le paiement sécurisé par Stripe sera disponible prochainement.
+              </p>
+            </div>
+
+            <button class="btn btn-gold btn-lg" style="width:100%;justify-content:center;opacity:.6;cursor:not-allowed;" disabled>
+              Payer — 68,00 €
+            </button>
+            <p style="text-align:center;font-size:.75rem;color:var(--text-dim);margin-top:10px;">
+              Paiement sécurisé · SSL
+            </p>
+          </div>
+
+          <div style="margin-top:16px;text-align:center;">
+            <a href="reservation.html" style="color:var(--text-muted);font-size:.85rem;">← Modifier la réservation</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+<script>
+  function updateCartDisplay() {
+    const items = document.querySelectorAll('.cart-item');
+    const cartEmpty   = document.getElementById('cart-empty');
+    const cartContent = document.getElementById('cart-content');
+
+    if (items.length === 0) {
+      cartEmpty.style.display = 'block';
+      cartContent.style.display = 'none';
+    } else {
+      cartEmpty.style.display = 'none';
+      cartContent.style.display = 'block';
+
+      let total = 0;
+      items.forEach(item => {
+        total += parseFloat(item.dataset.price || 0);
+      });
+      const fmt = n => n.toFixed(2).replace('.', ',') + ' €';
+      document.getElementById('cart-subtotal').textContent = fmt(total);
+      document.getElementById('cart-total').textContent = fmt(total);
+      const payBtn = document.querySelector('[disabled]');
+      if (payBtn) payBtn.textContent = 'Payer — ' + fmt(total);
+    }
+  }
+
+  // Afficher le contenu si des articles existent
+  const hasItems = document.querySelectorAll('.cart-item').length > 0;
+  document.getElementById('cart-empty').style.display   = hasItems ? 'none'  : 'block';
+  document.getElementById('cart-content').style.display = hasItems ? 'grid'  : 'none';
+</script>
+</body>
+</html>

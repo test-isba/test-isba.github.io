@@ -1,0 +1,25 @@
+A FAIRE : 
+
+
+Mettre les photos des activités
+
+Implentation du lieu google map
+
+Annimation progressif qui se reload quand tu scroll en descendant ou remontant
+
+Enlever tout les emojis et les - donc /humanizer
+
+Verifier les bons tarifs
+
+Fait par Jibzz + Lien en direction de mon porfolio
+
+Photos à rajouter : 
+
+Photos isba
+Photos salles
+Photos staff Individuel et en groupe 
+
+Création mail ou appelle de prospection
+Liste de qu'est-ce qui allait pas sur leur sire
+Liste de ce que j'ai changé ce que ça apportera et des fonctionnalités et details en plus 
+Comment tester le site tout seul (guide)

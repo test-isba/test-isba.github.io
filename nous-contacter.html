@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contactez Les Portes de l'Isba, escape game à Troyes. Téléphone, email, adresse et formulaire de contact.">
+  <title>Nous Contacter — Les Portes de l'Isba</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+<div class="nav-spacer"></div>
+
+<div class="page-hero">
+  <p class="page-hero-eyebrow">On vous répond vite</p>
+  <h1>Nous Contacter</h1>
+  <p>Une question, une demande de devis ou envie d'organiser un événement ? Écrivez-nous.</p>
+</div>
+
+<section>
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:56px;align-items:start;">
+
+      <!-- Infos contact -->
+      <div class="reveal">
+        <h3 style="color:var(--gold);margin-bottom:32px;">Informations</h3>
+
+        <div style="display:flex;flex-direction:column;gap:24px;">
+          <div class="tb-feature" style="padding:20px;">
+            <div class="tb-feature-icon"></div>
+            <div class="tb-feature-body">
+              <h3 style="font-size:.9rem;margin-bottom:6px;">Adresse</h3>
+              <p>1 route de Cupigny<br>10150 Creney-près-Troyes</p>
+              <p style="margin-top:8px;font-size:.82rem;color:var(--gold);">Parking vaste et gratuit</p>
+            </div>
+          </div>
+
+          <div class="tb-feature" style="padding:20px;">
+            <div class="tb-feature-icon"></div>
+            <div class="tb-feature-body">
+              <h3 style="font-size:.9rem;margin-bottom:6px;">Téléphone</h3>
+              <a href="tel:0786284769" style="color:var(--text-muted);font-size:1.05rem;">07 86 28 47 69</a>
+            </div>
+          </div>
+
+          <div class="tb-feature" style="padding:20px;">
+            <div class="tb-feature-icon"></div>
+            <div class="tb-feature-body">
+              <h3 style="font-size:.9rem;margin-bottom:6px;">Email</h3>
+              <a href="mailto:escape-game@lesportesdelisba.fr" style="color:var(--text-muted);word-break:break-all;">escape-game@lesportesdelisba.fr</a>
+            </div>
+          </div>
+
+          <div class="tb-feature" style="padding:20px;">
+            <div class="tb-feature-icon"></div>
+            <div class="tb-feature-body">
+              <h3 style="font-size:.9rem;margin-bottom:6px;">Horaires d'ouverture</h3>
+              <p>Vendredi : 14h – 22h</p>
+              <p>Samedi : 10h – 22h</p>
+              <p>Dimanche : 10h – 20h</p>
+              <p>Mardi – Jeudi : sur réservation</p>
+              <a href="nos-horaires.html" style="color:var(--gold);font-size:.82rem;margin-top:8px;display:inline-block;">Voir les horaires complets →</a>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:32px;">
+          <h4 style="color:var(--gold);margin-bottom:16px;">Suivez-nous</h4>
+          <div style="display:flex;gap:12px;">
+            <a href="https://www.facebook.com/escapegameLIsba" target="_blank" rel="noopener"
+               class="btn btn-outline btn-sm">Facebook</a>
+            <a href="https://www.instagram.com/lesportesdelisba" target="_blank" rel="noopener"
+               class="btn btn-outline btn-sm">Instagram</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulaire -->
+      <div class="reveal reveal-delay-1">
+        <div style="background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);padding:36px;">
+          <h3 style="margin-bottom:8px;">Envoyez-nous un message</h3>
+          <p style="color:var(--text-muted);font-size:.875rem;margin-bottom:28px;">Nous répondons généralement sous 24h.</p>
+
+          <form id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Prénom *</label>
+                <input type="text" class="form-input" placeholder="Jean" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nom *</label>
+                <input type="text" class="form-input" placeholder="Dupont" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input type="email" class="form-input" placeholder="jean.dupont@email.fr" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Téléphone</label>
+              <input type="tel" class="form-input" placeholder="06 12 34 56 78">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sujet *</label>
+              <select class="form-select" required>
+                <option value="">Sélectionnez un sujet</option>
+                <option>Question générale</option>
+                <option>Réservation / disponibilités</option>
+                <option>Team building / entreprise</option>
+                <option>Événement privé (anniversaire, EVG...)</option>
+                <option>Bon cadeau</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Message *</label>
+              <textarea class="form-textarea" placeholder="Décrivez votre demande..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">
+              Envoyer le message
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

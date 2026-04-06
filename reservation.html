@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Réservez votre session d'escape game aux Portes de l'Isba à Troyes. Booking en ligne simple et rapide.">
+  <title>Réserver — Les Portes de l'Isba</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .res-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .res-step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .75rem;
+      flex-shrink: 0;
+    }
+    .res-step.active { color: var(--gold); }
+    .res-step.active .res-step-num { border-color: var(--gold); background: var(--gold-bg); color: var(--gold); }
+    .res-step.done .res-step-num { border-color: var(--gold); background: var(--gold); color: #0a0a0a; }
+
+    .room-card {
+      border: 2px solid var(--border-dim);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .room-card:hover { border-color: var(--border); }
+    .room-card.selected { border-color: var(--gold); background: var(--gold-bg); }
+    .room-card input[type="radio"] { display: none; }
+    .room-card-img {
+      width: 80px;
+      height: 60px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      background: var(--bg-3);
+      flex-shrink: 0;
+    }
+    .room-card-body h4 { font-size: .95rem; margin-bottom: 4px; }
+    .room-card-body p  { font-size: .8rem; color: var(--text-muted); }
+
+    .stripe-placeholder {
+      background: var(--bg-3);
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .stripe-placeholder p { font-size: .875rem; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+<div class="nav-spacer"></div>
+
+<div class="page-hero">
+  <p class="page-hero-eyebrow">Réservation en ligne</p>
+  <h1>Réserver une session</h1>
+  <p>Choisissez votre salle, votre date et le nombre de joueurs. Simple, rapide, sécurisé.</p>
+</div>
+
+<section>
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start;">
+
+      <!-- Formulaire principal -->
+      <div>
+        <form id="reservation-form">
+
+          <!-- Étape 1 : Salle -->
+          <div style="background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);padding:32px;margin-bottom:20px;" class="reveal">
+            <h3 style="margin-bottom:24px;">1. Choisissez votre aventure</h3>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+
+              <label class="room-card" id="card-athaza">
+                <input type="radio" name="res-room" id="res-room" value="athazagoraphobia">
+                <img src="images/athazagoraphobia.jpg" class="room-card-img"
+                     onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
+                <div class="room-card-body">
+                  <h4>Athazagoraphobia</h4>
+                  <p>Permanente · 2–6 joueurs · 60 min · </p>
+                </div>
+              </label>
+
+              <label class="room-card" id="card-midgard">
+                <input type="radio" name="res-room" value="heros-de-midgard">
+                <img src="images/heros-de-midgard.jpg" class="room-card-img"
+                     onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
+                <div class="room-card-body">
+                  <h4>Héros de Midgard</h4>
+                  <p>Permanente · 2–6 joueurs · 60 min · </p>
+                </div>
+              </label>
+
+              <label class="room-card" id="card-hohoho">
+                <input type="radio" name="res-room" value="ho-ho-ho">
+                <img src="images/ho-ho-ho.jpg" class="room-card-img"
+                     onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
+                <div class="room-card-body">
+                  <h4>Ho-Ho-Ho !</h4>
+                  <p>Saisonnière · 2–6 joueurs · 60 min · </p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Étape 2 : Date & joueurs -->
+          <div style="background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);padding:32px;margin-bottom:20px;" class="reveal">
+            <h3 style="margin-bottom:24px;">2. Date & joueurs</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Date souhaitée *</label>
+                <input type="date" class="form-input" id="res-date" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nombre de joueurs *</label>
+                <select class="form-select" id="res-players" required>
+                  <option value="">Sélectionnez</option>
+                  <option value="2">2 joueurs — 52 €</option>
+                  <option value="3">3 joueurs — 60 €</option>
+                  <option value="4">4 joueurs — 68 €</option>
+                  <option value="5">5 joueurs — 75 €</option>
+                  <option value="6">6 joueurs — 84 €</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Créneau horaire souhaité *</label>
+              <select class="form-select" required>
+                <option value="">Sélectionnez un créneau</option>
+                <option>10h00</option>
+                <option>11h30</option>
+                <option>13h00</option>
+                <option>14h30</option>
+                <option>16h00</option>
+                <option>17h30</option>
+                <option>19h00</option>
+                <option>20h30</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Étape 3 : Coordonnées -->
+          <div style="background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);padding:32px;margin-bottom:20px;" class="reveal">
+            <h3 style="margin-bottom:24px;">3. Vos coordonnées</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Prénom *</label>
+                <input type="text" class="form-input" placeholder="Jean" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nom *</label>
+                <input type="text" class="form-input" placeholder="Dupont" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Email *</label>
+                <input type="email" class="form-input" placeholder="jean@email.fr" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Téléphone *</label>
+                <input type="tel" class="form-input" placeholder="06 12 34 56 78" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Informations complémentaires</label>
+              <textarea class="form-textarea" placeholder="Occasion spéciale, accessibilité, demande particulière..." style="min-height:90px;"></textarea>
+            </div>
+          </div>
+
+          <!-- Étape 4 : Paiement -->
+          <div style="background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);padding:32px;" class="reveal">
+            <h3 style="margin-bottom:24px;">4. Paiement</h3>
+            <div class="stripe-placeholder">
+              <svg width="48" height="28" viewBox="0 0 48 28" fill="none" style="margin:0 auto;">
+                <rect width="48" height="28" rx="6" fill="#635BFF" opacity=".2"/>
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#635BFF" font-size="10" font-weight="700">Stripe</text>
+              </svg>
+              <p>Le paiement sécurisé par Stripe sera intégré prochainement.</p>
+              <p style="margin-top:4px;font-size:.8rem;">Pour l'instant, nous vous confirmons votre réservation par téléphone sous 24h.</p>
+            </div>
+            <button type="submit" class="btn btn-gold btn-lg" style="width:100%;justify-content:center;margin-top:20px;">
+              Confirmer la réservation
+            </button>
+            <p style="text-align:center;font-size:.8rem;color:var(--text-muted);margin-top:12px;">
+              En confirmant, vous acceptez nos conditions générales de vente.
+            </p>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Récapitulatif -->
+      <div style="position:sticky;top:calc(var(--nav-h) + 20px);" class="reveal reveal-delay-1">
+        <div class="cart-summary">
+          <h3 style="margin-bottom:20px;font-size:1rem;">Récapitulatif</h3>
+          <div class="cart-summary-row">
+            <span>Salle</span>
+            <span id="recap-room" style="color:var(--text);">—</span>
+          </div>
+          <div class="cart-summary-row">
+            <span>Date</span>
+            <span id="recap-date" style="color:var(--text);">—</span>
+          </div>
+          <div class="cart-summary-row">
+            <span>Joueurs</span>
+            <span id="recap-players" style="color:var(--text);">—</span>
+          </div>
+          <div class="cart-summary-row total">
+            <span>Total</span>
+            <span id="res-price">— €</span>
+          </div>
+          <div style="margin-top:20px;padding:12px;background:var(--gold-bg);border-radius:var(--radius);border:1px solid var(--border);">
+            <p style="font-size:.8rem;color:var(--text-muted);">Annulation gratuite jusqu'à 48h avant la session.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;padding:16px;background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);">
+          <h4 style="color:var(--gold);margin-bottom:12px;">Besoin d'aide ?</h4>
+          <a href="tel:0786284769" class="btn btn-outline btn-sm" style="width:100%;justify-content:center;margin-bottom:8px;"> 07 86 28 47 69</a>
+          <a href="nous-contacter.html" class="btn btn-outline btn-sm" style="width:100%;justify-content:center;">Nous écrire</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Room card selection
+  document.querySelectorAll('.room-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.room-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      const radio = card.querySelector('input[type="radio"]');
+      if (radio) radio.checked = true;
+      updateRecap();
+    });
+  });
+
+  // Recap update
+  const roomLabels = {
+    'athazagoraphobia': 'Athazagoraphobia',
+    'heros-de-midgard': 'Héros de Midgard',
+    'ho-ho-ho': 'Ho-Ho-Ho !'
+  };
+  function updateRecap() {
+    const room = document.querySelector('input[name="res-room"]:checked');
+    const date = document.getElementById('res-date');
+    const players = document.getElementById('res-players');
+    const prices = { '2':52,'3':60,'4':68,'5':75,'6':84 };
+
+    if (room) document.getElementById('recap-room').textContent = roomLabels[room.value] || room.value;
+    if (date && date.value) {
+      const d = new Date(date.value);
+      document.getElementById('recap-date').textContent = d.toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'});
+    }
+    if (players && players.value) {
+      document.getElementById('recap-players').textContent = players.value + ' joueur' + (players.value > 1 ? 's' : '');
+      document.getElementById('res-price').textContent = (prices[players.value] || '—') + ' €';
+    }
+  }
+  document.getElementById('res-date')?.addEventListener('change', updateRecap);
+  document.getElementById('res-players')?.addEventListener('change', updateRecap);
+
+  // Presélection via URL param
+  const params = new URLSearchParams(window.location.search);
+  const salleParam = params.get('salle');
+  if (salleParam) {
+    const radio = document.querySelector(`input[value="${salleParam}"]`);
+    if (radio) {
+      radio.closest('.room-card').click();
+    }
+  }
+</script>
+</body>
+</html>
