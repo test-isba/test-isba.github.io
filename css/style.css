@@ -80,9 +80,9 @@ section { padding: 96px 0; }
 .section-header p  { color: var(--text-muted); max-width: 560px; margin: 0 auto; font-size: 1.05rem; }
 
 .gold-line {
-  width: 60px;
+  width: 80px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  background: linear-gradient(90deg, transparent, var(--gold), var(--purple), var(--gold), transparent);
   margin: 20px auto 0;
 }
 
@@ -300,8 +300,11 @@ section { padding: 96px 0; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
+  padding: 28px 0 24px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition);
@@ -433,9 +436,9 @@ section { padding: 96px 0; }
   transition: all var(--transition);
 }
 .card:hover {
-  border-color: var(--border);
+  border-color: rgba(164,100,151,.35);
   transform: translateY(-4px);
-  box-shadow: var(--shadow-gold);
+  box-shadow: var(--shadow-gold), 0 0 30px rgba(164,100,151,.08);
 }
 .card-img {
   width: 100%;
@@ -872,7 +875,7 @@ section { padding: 96px 0; }
   font-size: .75rem;
   letter-spacing: .3em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--purple);
   margin-bottom: 16px;
 }
 .page-hero h1 { color: var(--text); margin-bottom: 16px; }
@@ -947,6 +950,49 @@ section { padding: 96px 0; }
   .nav-link  { padding: 8px 10px; font-size: .75rem; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
 }
+
+/* ---- AVIS CLIENTS ---- */
+.review-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all var(--transition);
+}
+.review-card:hover {
+  border-color: rgba(164,100,151,.35);
+  box-shadow: 0 4px 24px rgba(164,100,151,.1);
+  transform: translateY(-3px);
+}
+.review-stars { color: #f59e0b; font-size: 1rem; letter-spacing: .1em; }
+.review-text {
+  font-size: .9rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+  font-style: italic;
+  flex: 1;
+}
+.review-author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.review-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple-bg), var(--gold-bg));
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--purple);
+  flex-shrink: 0;
+}
+.review-author strong { display: block; font-size: .85rem; color: var(--text); }
+.review-author span   { font-size: .75rem; color: var(--text-dim); }
 
 /* ---- EFFETS VISUELS ---- */
 
