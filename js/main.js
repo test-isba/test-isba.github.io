@@ -6,6 +6,50 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ---- Barre de progression scroll ---- */
+  const scrollProgress = document.getElementById('scroll-progress');
+  if (scrollProgress) {
+    const updateProgress = () => {
+      const scrolled = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      scrollProgress.style.width = Math.min(scrolled * 100, 100) + '%';
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  }
+
+  /* ---- Curseur personnalisé ---- */
+  const cursor    = document.getElementById('cursor');
+  const cursorDot = document.getElementById('cursor-dot');
+  if (cursor && cursorDot) {
+    document.addEventListener('mousemove', e => {
+      cursor.style.left    = e.clientX + 'px';
+      cursor.style.top     = e.clientY + 'px';
+      cursorDot.style.left = e.clientX + 'px';
+      cursorDot.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, [role="button"], label.room-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+    document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
+  }
+
+  /* ---- Texte typé sur le hero ---- */
+  const typedEl = document.querySelector('[data-typed]');
+  if (typedEl) {
+    const text = typedEl.textContent.trim();
+    typedEl.textContent = '';
+    let i = 0;
+    const type = () => {
+      if (i < text.length) {
+        typedEl.textContent += text[i++];
+        setTimeout(type, 28);
+      }
+    };
+    setTimeout(type, 600);
+  }
+
   /* ---- Nav sticky ---- */
   const nav = document.getElementById('main-nav');
   if (nav) {
