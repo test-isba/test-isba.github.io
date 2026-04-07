@@ -1073,56 +1073,25 @@ section { padding: 96px 0; }
   transition: width 0.08s linear;
 }
 
-/* ---- CURSEUR PERSONNALISÉ ---- */
-@media (pointer: fine) {
-  * { cursor: none !important; }
-  #cursor {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid var(--gold);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.18s ease, border-color 0.2s, opacity 0.3s;
-    mix-blend-mode: difference;
-  }
-  #cursor.hover {
-    transform: translate(-50%, -50%) scale(2);
-    border-color: var(--purple);
-  }
-  #cursor-dot {
-    position: fixed;
-    width: 4px;
-    height: 4px;
-    background: var(--gold);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -50%);
-    transition: transform 0.06s linear;
-  }
-}
-
 /* ---- GLITCH HERO TITLE ---- */
 @keyframes glitch-1 {
-  0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
-  20%       { clip-path: inset(10% 0 60% 0); transform: translate(-2px, 1px); }
-  40%       { clip-path: inset(40% 0 30% 0); transform: translate(2px, -1px); }
-  60%       { clip-path: inset(70% 0 5% 0);  transform: translate(-1px, 2px); }
-  80%       { clip-path: inset(20% 0 70% 0); transform: translate(1px, 0); }
+  0%   { clip-path: inset(0 0 95% 0);  transform: translate(0); }
+  15%  { clip-path: inset(10% 0 55% 0); transform: translate(-3px, 1px); }
+  30%  { clip-path: inset(35% 0 40% 0); transform: translate(3px, -1px); }
+  50%  { clip-path: inset(60% 0 15% 0); transform: translate(-2px, 2px); }
+  70%  { clip-path: inset(80% 0 5% 0);  transform: translate(2px, -1px); }
+  85%  { clip-path: inset(20% 0 65% 0); transform: translate(-1px, 1px); }
+  100% { clip-path: inset(0 0 100% 0);  transform: translate(0); }
 }
-.hero h1 {
-  position: relative;
-}
-.hero:hover h1::before {
+.hero h1 { position: relative; }
+.hero h1.glitch::before {
   content: attr(data-text);
   position: absolute;
   inset: 0;
   color: var(--purple);
-  animation: glitch-1 0.4s steps(1) 1;
-  opacity: 0.6;
+  animation: glitch-1 0.45s steps(2) 1 forwards;
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 /* ---- RÉSERVATION : grille responsive ---- */

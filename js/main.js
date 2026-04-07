@@ -17,22 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
   }
 
-  /* ---- Curseur personnalisé ---- */
-  const cursor    = document.getElementById('cursor');
-  const cursorDot = document.getElementById('cursor-dot');
-  if (cursor && cursorDot) {
-    document.addEventListener('mousemove', e => {
-      cursor.style.left    = e.clientX + 'px';
-      cursor.style.top     = e.clientY + 'px';
-      cursorDot.style.left = e.clientX + 'px';
-      cursorDot.style.top  = e.clientY + 'px';
+  /* ---- Glitch sur le titre hero (déclenché au mouseenter uniquement) ---- */
+  const heroTitle = document.querySelector('.hero h1');
+  if (heroTitle) {
+    heroTitle.addEventListener('mouseenter', () => {
+      if (heroTitle.classList.contains('glitch')) return;
+      heroTitle.classList.add('glitch');
+      setTimeout(() => heroTitle.classList.remove('glitch'), 460);
     });
-    document.querySelectorAll('a, button, [role="button"], label.room-card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-    document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
-    document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
   }
 
   /* ---- Texte typé sur le hero ---- */

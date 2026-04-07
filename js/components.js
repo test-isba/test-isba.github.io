@@ -138,16 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
   progressBar.id = 'scroll-progress';
   document.body.prepend(progressBar);
 
-  // Curseur personnalisé (desktop uniquement)
-  if (window.matchMedia('(pointer: fine)').matches) {
-    const cursor    = document.createElement('div');
-    const cursorDot = document.createElement('div');
-    cursor.id    = 'cursor';
-    cursorDot.id = 'cursor-dot';
-    document.body.appendChild(cursor);
-    document.body.appendChild(cursorDot);
-  }
-
   // Sticky CTA mobile (masqué sur la page réservation)
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   if (currentPage !== 'reservation.html') {
