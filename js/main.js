@@ -17,13 +17,28 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
   }
 
+  /* ---- Curseur clé ---- */
+  const cursorKey = document.getElementById('cursor-key');
+  if (cursorKey) {
+    document.addEventListener('mousemove', e => {
+      cursorKey.style.left = e.clientX + 'px';
+      cursorKey.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, label.room-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursorKey.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursorKey.classList.remove('hover'));
+    });
+    document.addEventListener('mouseleave', () => { cursorKey.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { cursorKey.style.opacity = '1'; cursorKey.classList.add('visible'); });
+  }
+
   /* ---- Glitch sur le titre hero (déclenché au mouseenter uniquement) ---- */
   const heroTitle = document.querySelector('.hero h1');
   if (heroTitle) {
     heroTitle.addEventListener('mouseenter', () => {
       if (heroTitle.classList.contains('glitch')) return;
       heroTitle.classList.add('glitch');
-      setTimeout(() => heroTitle.classList.remove('glitch'), 460);
+      setTimeout(() => heroTitle.classList.remove('glitch'), 510);
     });
   }
 

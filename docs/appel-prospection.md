@@ -4,7 +4,7 @@
 
 ## Accroche (10 sec)
 
-"Bonjour, je m'appelle [Prénom], développeur web. J'ai une question rapide : est-ce que vous êtes la personne en charge du site internet des Portes de l'Isba ?"
+"Bonjour, je m'appelle Jibril, développeur web. J'ai une question rapide : est-ce que vous êtes la personne en charge du site internet des Portes de l'Isba ?"
 
 ---
 

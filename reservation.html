@@ -6,6 +6,14 @@
   <meta name="description" content="Réservez votre session d'escape game aux Portes de l'Isba à Troyes. Booking en ligne simple et rapide.">
   <title>Réserver — Les Portes de l'Isba</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#BD8A1E">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Les Portes de l'Isba">
+  <meta property="og:title" content="Réserver — Les Portes de l'Isba">
+  <meta property="og:description" content="Réservez votre session d'escape game aux Portes de l'Isba à Troyes. Booking en ligne simple, rapide et sécurisé.">
+  <meta property="og:image" content="images/Logo.jpg">
+  <meta property="og:locale" content="fr_FR">
   <style>
     .res-step {
       display: flex;
@@ -94,31 +102,31 @@
 
               <label class="room-card" id="card-athaza">
                 <input type="radio" name="res-room" id="res-room" value="athazagoraphobia">
-                <img src="images/athazagoraphobia.jpg" class="room-card-img"
+                <img src="images/athazagoraphobia.jpg" class="room-card-img" loading="lazy"
                      onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
                 <div class="room-card-body">
                   <h4>Athazagoraphobia</h4>
-                  <p>Permanente · 2–6 joueurs · 60 min · </p>
+                  <p>Permanente · 2–6 joueurs · 60 min · Difficulté 3/5</p>
                 </div>
               </label>
 
               <label class="room-card" id="card-midgard">
                 <input type="radio" name="res-room" value="heros-de-midgard">
-                <img src="images/heros-de-midgard.jpg" class="room-card-img"
+                <img src="images/heros-de-midgard.jpg" class="room-card-img" loading="lazy"
                      onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
                 <div class="room-card-body">
                   <h4>Héros de Midgard</h4>
-                  <p>Permanente · 2–6 joueurs · 60 min · </p>
+                  <p>Permanente · 2–6 joueurs · 60 min · Difficulté 3/5</p>
                 </div>
               </label>
 
               <label class="room-card" id="card-hohoho">
                 <input type="radio" name="res-room" value="ho-ho-ho">
-                <img src="images/ho-ho-ho.jpg" class="room-card-img"
+                <img src="images/ho-ho-ho.jpg" class="room-card-img" loading="lazy"
                      onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
                 <div class="room-card-body">
                   <h4>Ho-Ho-Ho !</h4>
-                  <p>Saisonnière · 2–6 joueurs · 60 min · </p>
+                  <p>Saisonnière · 2–6 joueurs · Difficulté 2/5</p>
                 </div>
               </label>
             </div>
@@ -146,7 +154,7 @@
             </div>
             <div class="form-group">
               <label class="form-label">Créneau horaire souhaité *</label>
-              <select class="form-select" required>
+              <select class="form-select" id="res-time" required>
                 <option value="">Sélectionnez un créneau</option>
                 <option>10h00</option>
                 <option>11h30</option>
@@ -227,6 +235,10 @@
             <span>Joueurs</span>
             <span id="recap-players" style="color:var(--text);">—</span>
           </div>
+          <div class="cart-summary-row">
+            <span>Créneau</span>
+            <span id="recap-time" style="color:var(--text);">—</span>
+          </div>
           <div class="cart-summary-row total">
             <span>Total</span>
             <span id="res-price">— €</span>
@@ -283,9 +295,14 @@
       document.getElementById('recap-players').textContent = players.value + ' joueur' + (players.value > 1 ? 's' : '');
       document.getElementById('res-price').textContent = (prices[players.value] || '—') + ' €';
     }
+    const time = document.getElementById('res-time');
+    if (time && time.value) {
+      document.getElementById('recap-time').textContent = time.value;
+    }
   }
   document.getElementById('res-date')?.addEventListener('change', updateRecap);
   document.getElementById('res-players')?.addEventListener('change', updateRecap);
+  document.getElementById('res-time')?.addEventListener('change', updateRecap);
 
   // Presélection via URL param
   const params = new URLSearchParams(window.location.search);

@@ -8,7 +8,7 @@
 
 Bonjour,
 
-Je m'appelle [Prénom], développeur web freelance.
+Je m'appelle Jibril, développeur web freelance.
 
 En visitant le site des Portes de l'Isba, j'ai identifié plusieurs points qui freinaient votre visibilité et votre taux de conversion. J'ai pris l'initiative de le refaire entièrement.
 
@@ -31,6 +31,6 @@ En visitant le site des Portes de l'Isba, j'ai identifié plusieurs points qui f
 Je serais ravi de vous montrer le résultat et d'en discuter.
 
 Bien cordialement,
-[Prénom]
-[Lien portfolio]
+Jibril
+https://jibril-filali.github.io
 [Téléphone]

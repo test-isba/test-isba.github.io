@@ -1,50 +1,28 @@
-# TODO — Les Portes de l'Isba
+# TODO — Les Portes de l'Isba — Session complète
 
-## En cours
-- [ ] Foundation : CSS global + composants JS (header/footer)
+## BUGS À CORRIGER
+- [ ] reservation.html : trailing " · " dans labels de salles + ajouter difficulté
+- [ ] reservation.html : récap ne montre pas le créneau horaire
+- [ ] panier.html : data-price="68" → 80 (minimum réel)
+- [ ] index.html : div orpheline dans section avis
+- [ ] index.html : rel="noopener noreferrer" sur lien Tripadvisor
+- [ ] nous-contacter.html : URL Google Maps → query-based correcte
+- [ ] nous-contacter.html : rel="noopener noreferrer" sur Facebook/Instagram
 
-## À faire
-- [ ] index.html (accueil)
-- [ ] nos-aventures.html
-- [ ] nos-tarifs.html
-- [ ] qui-sommes-nous.html
-- [ ] histoire-isba.html
-- [ ] nous-contacter.html
-- [ ] nos-horaires.html
-- [ ] reservation.html (Stripe placeholder)
-- [ ] team-building.html
-- [ ] evenements.html (EVG/EVJF/Anniversaire)
-- [ ] faq.html
-- [ ] panier.html
+## SEO & TECHNIQUE
+- [ ] favicon.svg (clé dorée)
+- [ ] robots.txt
+- [ ] sitemap.xml
+- [ ] Open Graph meta tags + theme-color + favicon link sur les 12 pages
+- [ ] loading="lazy" sur toutes les images sous le fold
 
-## Structure fichiers
-```
-/
-├── index.html
-├── nos-aventures.html
-├── nos-tarifs.html
-├── qui-sommes-nous.html
-├── histoire-isba.html
-├── nous-contacter.html
-├── nos-horaires.html
-├── reservation.html
-├── team-building.html
-├── evenements.html
-├── faq.html
-├── panier.html
-├── css/style.css
-├── js/components.js   ← header/footer injectés via JS
-├── js/main.js         ← nav sticky, animations scroll, hamburger
-└── images/            ← l'utilisateur dépose ses images ici
-```
+## SÉCURITÉ
+- [ ] rel="noopener noreferrer" partout (html + components.js)
 
-## Décisions techniques
-- Stack : HTML/CSS/JS pur
-- Header/footer : injectés via JS (components.js) pour éviter la duplication sur 12 pages
-- Animations : Intersection Observer (scroll reveal)
-- Réservation : formulaire fonctionnel visuellement, Stripe branché plus tard
-- Polices : Cinzel Decorative (titres) + Raleway (corps) via Google Fonts
+## NOUVELLES FONCTIONNALITÉS
+- [ ] 404.html stylée dans le thème
 
-## Terminé
-- [x] Analyse du site existant
-- [x] Définition de la structure
+## GITHUB & LIVRAISON
+- [ ] Git commit
+- [ ] Git push (nécessite auth utilisateur — voir fichier bureau)
+- [ ] Fichier "Travail fais chef.txt" sur le bureau

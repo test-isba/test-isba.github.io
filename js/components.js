@@ -68,10 +68,10 @@ const FOOTER_HTML = `
           Une équipe, une salle, une heure : votre aventure.
         </p>
         <div class="footer-socials">
-          <a href="https://www.facebook.com/escapegameLIsba" target="_blank" rel="noopener" class="footer-social" title="Facebook" aria-label="Facebook">
+          <a href="https://www.facebook.com/escapegameLIsba" target="_blank" rel="noopener noreferrer" class="footer-social" title="Facebook" aria-label="Facebook">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
           </a>
-          <a href="https://www.instagram.com/lesportesdelisba" target="_blank" rel="noopener" class="footer-social" title="Instagram" aria-label="Instagram">
+          <a href="https://www.instagram.com/lesportesdelisba" target="_blank" rel="noopener noreferrer" class="footer-social" title="Instagram" aria-label="Instagram">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </a>
         </div>
@@ -119,7 +119,7 @@ const FOOTER_HTML = `
 
     <div class="footer-bottom">
       <span>© ${new Date().getFullYear()} Les Portes de l'Isba. Tous droits réservés.</span>
-      <span>Site conçu par <a href="https://jibril-filali.github.io" target="_blank" rel="noopener" style="color:var(--gold);transition:opacity .2s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">Jibzz</a></span>
+      <span>Site conçu par <a href="https://jibril-filali.github.io" target="_blank" rel="noopener noreferrer" style="color:var(--gold);transition:opacity .2s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">Jibzz</a></span>
     </div>
   </div>
 </footer>
@@ -146,6 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
     sticky.innerHTML = '<a href="reservation.html" class="btn btn-gold" style="width:100%;justify-content:center;">Réserver</a>';
     document.body.appendChild(sticky);
   }
+  // Curseur clé (desktop uniquement)
+  if (window.matchMedia('(pointer: fine)').matches) {
+    const cursorKey = document.createElement('div');
+    cursorKey.id = 'cursor-key';
+    cursorKey.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>`;
+    document.body.appendChild(cursorKey);
+  }
+
   document.querySelectorAll('.nav-link, .nav-mobile-link, .footer-link').forEach(link => {
     const href = link.getAttribute('href');
     if (href && href === currentPage) link.classList.add('active');
