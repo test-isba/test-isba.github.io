@@ -1,6 +1,41 @@
 'use strict';
 
 /* ============================================================
+   Les Portes de l'Isba — Loader de page
+   ============================================================ */
+(function () {
+  const loaderStart = Date.now();
+  const MIN_MS      = 800;
+
+  const loader = document.createElement('div');
+  loader.id = 'page-loader';
+  loader.innerHTML =
+    '<svg class="loader-icon" width="52" height="52" viewBox="0 0 24 24" fill="none"' +
+    ' stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+    '<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777z"/>' +
+    '<path d="M15.5 7.5l3 3L22 7l-3-3"/><path d="M11.89 11.89L15.5 7.5"/>' +
+    '</svg>' +
+    '<div class="loader-text">' +
+      '<div class="loader-brand">Les Portes de l\'Isba</div>' +
+      '<div class="loader-sub">Escape Game · Troyes</div>' +
+    '</div>' +
+    '<div class="loader-bar-wrap"><div class="loader-bar"></div></div>';
+
+  document.body.prepend(loader);
+
+  function hideLoader() {
+    var delay = Math.max(0, MIN_MS - (Date.now() - loaderStart));
+    setTimeout(function () { loader.classList.add('loader-hidden'); }, delay);
+  }
+
+  if (document.readyState === 'complete') {
+    hideLoader();
+  } else {
+    window.addEventListener('load', hideLoader, { once: true });
+  }
+}());
+
+/* ============================================================
    Les Portes de l'Isba — Header & Footer injectés
    ============================================================ */
 
