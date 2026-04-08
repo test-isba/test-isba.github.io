@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panier — Les Portes de l'Isba</title>
   <link rel="stylesheet" href="css/style.css">
@@ -44,18 +45,15 @@
           <div id="cart-items">
             <!-- Exemple d'article — généré dynamiquement -->
             <div class="cart-item" data-price="80">
-              <img src="images/heros-de-midgard.jpg" class="cart-item-img"
-                   onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
+              <img src="images/heros-de-midgard.jpg" class="cart-item-img" data-fallback="card">
               <div class="cart-item-info">
                 <h4>Héros de Midgard</h4>
                 <p>Samedi 12 avril 2025 — 16h00 · 4 joueurs</p>
               </div>
               <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
                 <span class="cart-item-price">68 €</span>
-                <button onclick="this.closest('.cart-item').remove(); updateCartDisplay();"
-                        style="color:var(--text-dim);font-size:.75rem;transition:color var(--transition);"
-                        onmouseover="this.style.color='var(--error)'"
-                        onmouseout="this.style.color='var(--text-dim)'">
+                <button class="cart-delete-btn"
+                        style="color:var(--text-dim);font-size:.75rem;transition:color var(--transition);">
                   Supprimer
                 </button>
               </div>
@@ -116,35 +114,6 @@
 <div id="footer-placeholder"></div>
 <script src="js/components.js"></script>
 <script src="js/main.js"></script>
-<script>
-  function updateCartDisplay() {
-    const items = document.querySelectorAll('.cart-item');
-    const cartEmpty   = document.getElementById('cart-empty');
-    const cartContent = document.getElementById('cart-content');
-
-    if (items.length === 0) {
-      cartEmpty.style.display = 'block';
-      cartContent.style.display = 'none';
-    } else {
-      cartEmpty.style.display = 'none';
-      cartContent.style.display = 'block';
-
-      let total = 0;
-      items.forEach(item => {
-        total += parseFloat(item.dataset.price || 0);
-      });
-      const fmt = n => n.toFixed(2).replace('.', ',') + ' €';
-      document.getElementById('cart-subtotal').textContent = fmt(total);
-      document.getElementById('cart-total').textContent = fmt(total);
-      const payBtn = document.querySelector('[disabled]');
-      if (payBtn) payBtn.textContent = 'Payer — ' + fmt(total);
-    }
-  }
-
-  // Afficher le contenu si des articles existent
-  const hasItems = document.querySelectorAll('.cart-item').length > 0;
-  document.getElementById('cart-empty').style.display   = hasItems ? 'none'  : 'block';
-  document.getElementById('cart-content').style.display = hasItems ? 'grid'  : 'none';
-</script>
+<script src="js/panier.js"></script>
 </body>
 </html>

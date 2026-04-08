@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Réservez votre session d'escape game aux Portes de l'Isba à Troyes. Booking en ligne simple et rapide.">
   <title>Réserver — Les Portes de l'Isba</title>
@@ -102,8 +103,7 @@
 
               <label class="room-card" id="card-athaza">
                 <input type="radio" name="res-room" id="res-room" value="athazagoraphobia">
-                <img src="images/athazagoraphobia.jpg" class="room-card-img" loading="lazy"
-                     onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
+                <img src="images/athazagoraphobia.jpg" class="room-card-img" loading="lazy" data-fallback="card">
                 <div class="room-card-body">
                   <h4>Athazagoraphobia</h4>
                   <p>Permanente · 2–6 joueurs · 60 min · Difficulté 3/5</p>
@@ -112,8 +112,7 @@
 
               <label class="room-card" id="card-midgard">
                 <input type="radio" name="res-room" value="heros-de-midgard">
-                <img src="images/heros-de-midgard.jpg" class="room-card-img" loading="lazy"
-                     onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
+                <img src="images/heros-de-midgard.jpg" class="room-card-img" loading="lazy" data-fallback="card">
                 <div class="room-card-body">
                   <h4>Héros de Midgard</h4>
                   <p>Permanente · 2–6 joueurs · 60 min · Difficulté 3/5</p>
@@ -122,8 +121,7 @@
 
               <label class="room-card" id="card-hohoho">
                 <input type="radio" name="res-room" value="ho-ho-ho">
-                <img src="images/ho-ho-ho.jpg" class="room-card-img" loading="lazy"
-                     onerror="this.style.cssText='width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0'">
+                <img src="images/ho-ho-ho.jpg" class="room-card-img" loading="lazy" data-fallback="card">
                 <div class="room-card-body">
                   <h4>Ho-Ho-Ho !</h4>
                   <p>Saisonnière · 2–6 joueurs · Difficulté 2/5</p>
@@ -262,57 +260,6 @@
 <div id="footer-placeholder"></div>
 <script src="js/components.js"></script>
 <script src="js/main.js"></script>
-<script>
-  // Room card selection
-  document.querySelectorAll('.room-card').forEach(card => {
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.room-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      const radio = card.querySelector('input[type="radio"]');
-      if (radio) radio.checked = true;
-      updateRecap();
-    });
-  });
-
-  // Recap update
-  const roomLabels = {
-    'athazagoraphobia': 'Athazagoraphobia',
-    'heros-de-midgard': 'Héros de Midgard',
-    'ho-ho-ho': 'Ho-Ho-Ho !'
-  };
-  function updateRecap() {
-    const room = document.querySelector('input[name="res-room"]:checked');
-    const date = document.getElementById('res-date');
-    const players = document.getElementById('res-players');
-    const prices = { '2':80,'3':90,'4':104,'5':120,'6':132 };
-
-    if (room) document.getElementById('recap-room').textContent = roomLabels[room.value] || room.value;
-    if (date && date.value) {
-      const d = new Date(date.value);
-      document.getElementById('recap-date').textContent = d.toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'});
-    }
-    if (players && players.value) {
-      document.getElementById('recap-players').textContent = players.value + ' joueur' + (players.value > 1 ? 's' : '');
-      document.getElementById('res-price').textContent = (prices[players.value] || '—') + ' €';
-    }
-    const time = document.getElementById('res-time');
-    if (time && time.value) {
-      document.getElementById('recap-time').textContent = time.value;
-    }
-  }
-  document.getElementById('res-date')?.addEventListener('change', updateRecap);
-  document.getElementById('res-players')?.addEventListener('change', updateRecap);
-  document.getElementById('res-time')?.addEventListener('change', updateRecap);
-
-  // Presélection via URL param
-  const params = new URLSearchParams(window.location.search);
-  const salleParam = params.get('salle');
-  if (salleParam) {
-    const radio = document.querySelector(`input[value="${salleParam}"]`);
-    if (radio) {
-      radio.closest('.room-card').click();
-    }
-  }
-</script>
+<script src="js/reservation.js"></script>
 </body>
 </html>

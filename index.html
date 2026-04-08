@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Escape game immersif à Troyes. Vivez une aventure hors du commun dans l'isba russe. Réservez dès maintenant pour 2 à 6 joueurs.">
   <title>Les Portes de l'Isba — Escape Game Troyes</title>
@@ -256,7 +257,7 @@
       <a href="https://www.tripadvisor.fr/Attraction_Review-g187138-d21129591-Reviews-Les_Portes_De_L_isba-Troyes_Aube_Grand_Est.html"
          target="_blank" rel="noopener noreferrer"
          style="font-family:var(--font-heading);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);transition:color var(--transition);"
-         onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
+         data-hover-color="var(--gold)">
         Voir tous les avis →
       </a>
     </div>
@@ -305,9 +306,8 @@
   <div class="container">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
       <div class="reveal">
-        <img src="images/isba-interieur.jpg" alt="L'intérieur de l'Isba" loading="lazy"
-             style="width:100%; border-radius: var(--radius-lg); border: 1px solid var(--border);"
-             onerror="this.style.background='var(--bg-3)'; this.style.height='320px'; this.style.display='block';">
+        <img src="images/isba-interieur.jpg" alt="L'intérieur de l'Isba" loading="lazy" data-fallback="large"
+             style="width:100%; border-radius: var(--radius-lg); border: 1px solid var(--border);">
       </div>
       <div class="reveal reveal-delay-1">
         <p class="page-hero-eyebrow" style="text-align:left; margin-bottom:16px;">L'histoire</p>

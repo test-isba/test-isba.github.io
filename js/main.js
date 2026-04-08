@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
-    // Fermer sur clic d'un lien
     navMobile.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navMobile.classList.remove('open');
@@ -108,11 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     question.addEventListener('click', () => {
       const item = question.closest('.faq-item');
       const isOpen = item.classList.contains('open');
-
-      // Fermer tous
       document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-
-      // Ouvrir si était fermé
       if (!isOpen) item.classList.add('open');
     });
   });
@@ -147,32 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
     counters.forEach(el => countObserver.observe(el));
   }
 
-  /* ---- Réservation : mise à jour du prix ---- */
-  const reservationForm = document.getElementById('reservation-form');
-  if (reservationForm) {
-    const roomSelect    = document.getElementById('res-room');
-    const playersSelect = document.getElementById('res-players');
-    const priceDisplay  = document.getElementById('res-price');
-
-    const PRICES = {
-      '2': 80,
-      '3': 90,
-      '4': 104,
-      '5': 120,
-      '6': 132
-    };
-
-    const updatePrice = () => {
-      const players = playersSelect ? playersSelect.value : null;
-      if (priceDisplay && players && PRICES[players]) {
-        priceDisplay.textContent = PRICES[players] + ' €';
-      }
-    };
-
-    if (playersSelect) playersSelect.addEventListener('change', updatePrice);
-    updatePrice();
-  }
-
   /* ---- Panier : quantité ---- */
   document.querySelectorAll('.qty-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -181,20 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const val = parseInt(input.value, 10);
       if (btn.dataset.action === 'minus' && val > 1) input.value = val - 1;
       if (btn.dataset.action === 'plus'  && val < 6) input.value = val + 1;
-      updateCartTotal();
     });
   });
-
-  function updateCartTotal() {
-    let total = 0;
-    document.querySelectorAll('.cart-item').forEach(item => {
-      const price = parseFloat(item.dataset.price || 0);
-      const qty   = parseInt(item.querySelector('.qty-input')?.value || 1, 10);
-      total += price * qty;
-    });
-    const totalEl = document.getElementById('cart-total');
-    if (totalEl) totalEl.textContent = total.toFixed(2) + ' €';
-  }
 
   /* ---- Smooth scroll ancres ---- */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -202,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(anchor.getAttribute('href'));
       if (target) {
         e.preventDefault();
-        const offset = 80; // hauteur nav
+        const offset = 80;
         const top = target.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: 'smooth' });
       }
@@ -219,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = 'Envoi...';
       btn.disabled = true;
 
-      // Simulation — à remplacer par vrai appel fetch vers backend
       setTimeout(() => {
         btn.textContent = 'Message envoyé !';
         btn.style.background = '#16a34a';
@@ -232,5 +188,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 1200);
     });
   }
+
+  /* ---- Fallback images (remplace les onerror inline) ---- */
+  const IMG_FALLBACKS = {
+    'large':     'width:100%;height:360px;display:block;background:var(--bg-3);border-radius:var(--radius-lg)',
+    'team':      'width:100%;height:260px;display:block;background:var(--bg-3)',
+    'gallery':   'width:100%;height:220px;display:block;background:var(--bg-3);border-radius:var(--radius-lg)',
+    'card':      'width:80px;height:60px;display:block;background:var(--bg-3);border-radius:var(--radius);flex-shrink:0',
+    'parchemin': 'width:100%;height:300px;display:block;background:var(--bg-3);border-radius:var(--radius-lg)',
+    'hide':      'display:none',
+  };
+  document.querySelectorAll('img[data-fallback]').forEach(img => {
+    img.addEventListener('error', () => {
+      const style = IMG_FALLBACKS[img.dataset.fallback];
+      if (style) img.style.cssText = style;
+    });
+  });
+
+  /* ---- Liens hover (remplace les onmouseover/onmouseout inline) ---- */
+  document.querySelectorAll('[data-hover-color]').forEach(el => {
+    const original = el.dataset.hoverColor;
+    el.addEventListener('mouseenter', () => { el.style.color = original; });
+    el.addEventListener('mouseleave', () => { el.style.color = ''; });
+  });
+
+  document.querySelectorAll('[data-hover-opacity]').forEach(el => {
+    const val = el.dataset.hoverOpacity;
+    el.addEventListener('mouseenter', () => { el.style.opacity = val; });
+    el.addEventListener('mouseleave', () => { el.style.opacity = '1'; });
+  });
 
 });

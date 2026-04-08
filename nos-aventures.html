@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Découvrez les aventures de l'Isba : Athazagoraphobia, Héros de Midgard, Ho-Ho-Ho. Escape game immersif à Troyes.">
   <title>Nos Aventures — Les Portes de l'Isba</title>
@@ -32,9 +33,8 @@
   <div class="container">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
       <div class="reveal">
-        <img src="images/athazagoraphobia.jpg" alt="Athazagoraphobia" loading="lazy"
-             style="width:100%; border-radius:var(--radius-lg); border:1px solid var(--border);"
-             onerror="this.style.cssText='width:100%;height:360px;display:block;background:var(--bg-3);border-radius:var(--radius-lg);'">
+        <img src="images/athazagoraphobia.jpg" alt="Athazagoraphobia" loading="lazy" data-fallback="large"
+             style="width:100%; border-radius:var(--radius-lg); border:1px solid var(--border);">
       </div>
       <div class="reveal reveal-delay-1">
         <span class="badge badge-gold" style="margin-bottom:20px;">Salle permanente</span>
@@ -67,9 +67,8 @@
   <div class="container">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
       <div class="reveal reveal-delay-1" style="order:2;">
-        <img src="images/heros-de-midgard.jpg" alt="Héros de Midgard" loading="lazy"
-             style="width:100%; border-radius:var(--radius-lg); border:1px solid var(--border);"
-             onerror="this.style.cssText='width:100%;height:360px;display:block;background:var(--bg-3);border-radius:var(--radius-lg);'">
+        <img src="images/heros-de-midgard.jpg" alt="Héros de Midgard" loading="lazy" data-fallback="large"
+             style="width:100%; border-radius:var(--radius-lg); border:1px solid var(--border);">
       </div>
       <div class="reveal" style="order:1;">
         <span class="badge badge-purple" style="margin-bottom:20px;">Salle permanente</span>
@@ -102,9 +101,8 @@
   <div class="container">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
       <div class="reveal">
-        <img src="images/ho-ho-ho.jpg" alt="Ho-Ho-Ho!" loading="lazy"
-             style="width:100%; border-radius:var(--radius-lg); border:1px solid var(--border);"
-             onerror="this.style.cssText='width:100%;height:360px;display:block;background:var(--bg-3);border-radius:var(--radius-lg);'">
+        <img src="images/ho-ho-ho.jpg" alt="Ho-Ho-Ho!" loading="lazy" data-fallback="large"
+             style="width:100%; border-radius:var(--radius-lg); border:1px solid var(--border);">
       </div>
       <div class="reveal reveal-delay-1">
         <span class="badge badge-gold" style="margin-bottom:20px;">Salle saisonnière</span>

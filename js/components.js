@@ -9,7 +9,7 @@ const HEADER_HTML = `
   <div class="nav-inner">
 
     <a href="index.html" class="nav-logo">
-      <img src="images/Logo.jpg" alt="Les Portes de l'Isba" onerror="this.style.display='none'">
+      <img src="images/Logo.jpg" alt="Les Portes de l'Isba" data-fallback="hide">
       <span class="nav-logo-text">Les Portes<br>de l'Isba</span>
     </a>
 
@@ -61,8 +61,7 @@ const FOOTER_HTML = `
     <div class="footer-grid">
 
       <div>
-        <img src="images/Logo.jpg" alt="Les Portes de l'Isba" class="footer-brand-logo"
-             onerror="this.style.display='none'">
+        <img src="images/Logo.jpg" alt="Les Portes de l'Isba" class="footer-brand-logo" data-fallback="hide">
         <p class="footer-brand-text">
           Escape game immersif à Troyes. Vivez une aventure hors du commun dans notre isba russe mystérieuse.
           Une équipe, une salle, une heure : votre aventure.
@@ -119,7 +118,7 @@ const FOOTER_HTML = `
 
     <div class="footer-bottom">
       <span>© ${new Date().getFullYear()} Les Portes de l'Isba. Tous droits réservés.</span>
-      <span>Site conçu par <a href="https://jibril-filali.github.io" target="_blank" rel="noopener noreferrer" style="color:var(--gold);transition:opacity .2s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">Jibzz</a></span>
+      <span>Site conçu par <a href="https://jibril-filali.github.io" target="_blank" rel="noopener noreferrer" style="color:var(--gold);transition:opacity .2s;" data-hover-opacity=".7">Jibzz</a></span>
     </div>
   </div>
 </footer>
