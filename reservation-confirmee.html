@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Réservation confirmée · Les Portes de l'Isba</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#BD8A1E">
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+<div class="nav-spacer"></div>
+
+<section style="min-height:60vh; display:flex; align-items:center;">
+  <div class="container container--narrow" style="text-align:center;">
+
+    <div style="display:inline-flex; align-items:center; justify-content:center; width:72px; height:72px; border-radius:50%; background:rgba(189,138,30,.12); border:1px solid var(--gold); margin-bottom:32px;">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+
+    <h1 style="color:var(--gold); margin-bottom:16px;">Paiement confirmé !</h1>
+    <p style="color:var(--text-muted); margin-bottom:40px; font-size:1.1rem;">
+      Votre réservation est enregistrée. Un email de confirmation vous a été envoyé par Stripe.
+    </p>
+
+    <div id="booking-recap" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:36px; margin-bottom:40px; text-align:left; max-width:480px; margin-left:auto; margin-right:auto;">
+      <h3 style="color:var(--gold); margin-bottom:24px; font-size:.85rem; letter-spacing:.15em; text-transform:uppercase;">Récapitulatif</h3>
+      <table style="width:100%; border-collapse:collapse;">
+        <tr id="recap-row-salle" style="border-bottom:1px solid var(--border-dim);">
+          <td style="padding:10px 0; color:var(--text-muted); font-size:.9rem;">Salle</td>
+          <td id="rc-salle" style="padding:10px 0; text-align:right; font-weight:500;"></td>
+        </tr>
+        <tr id="recap-row-date" style="border-bottom:1px solid var(--border-dim);">
+          <td style="padding:10px 0; color:var(--text-muted); font-size:.9rem;">Date</td>
+          <td id="rc-date" style="padding:10px 0; text-align:right; font-weight:500;"></td>
+        </tr>
+        <tr id="recap-row-creneau" style="border-bottom:1px solid var(--border-dim);">
+          <td style="padding:10px 0; color:var(--text-muted); font-size:.9rem;">Créneau</td>
+          <td id="rc-creneau" style="padding:10px 0; text-align:right; font-weight:500;"></td>
+        </tr>
+        <tr id="recap-row-joueurs">
+          <td style="padding:10px 0; color:var(--text-muted); font-size:.9rem;">Joueurs</td>
+          <td id="rc-joueurs" style="padding:10px 0; text-align:right; font-weight:500;"></td>
+        </tr>
+      </table>
+    </div>
+
+    <p style="color:var(--text-muted); font-size:.9rem; margin-bottom:32px;">
+      Une question ? Appelez-nous au <a href="tel:0786284769" style="color:var(--gold);">07 86 28 47 69</a>
+    </p>
+
+    <a href="index.html" class="btn btn-gold">Retour à l'accueil</a>
+
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+<script>
+  // Récupération des détails depuis les paramètres URL (passés par la fonction Netlify)
+  const p = new URLSearchParams(window.location.search);
+  const set = (id, val) => { if (val) document.getElementById(id).textContent = val; };
+  const hide = (id) => { const r = document.getElementById(id); if (r) r.style.display = 'none'; };
+
+  const salle   = p.get('salle');
+  const date    = p.get('date');
+  const creneau = p.get('creneau');
+  const joueurs = p.get('joueurs');
+  const prenom  = p.get('prenom');
+  const nom     = p.get('nom');
+
+  if (salle)   set('rc-salle',   salle);   else hide('recap-row-salle');
+  if (date)    set('rc-date',    date);    else hide('recap-row-date');
+  if (creneau) set('rc-creneau', creneau); else hide('recap-row-creneau');
+  if (joueurs) set('rc-joueurs', joueurs + ' joueur' + (parseInt(joueurs) > 1 ? 's' : ''));
+               else hide('recap-row-joueurs');
+
+  if (prenom || nom) {
+    const h1 = document.querySelector('h1');
+    if (h1) h1.textContent = 'Merci ' + [prenom, nom].filter(Boolean).join(' ') + ' !';
+  }
+</script>
+</body>
+</html>

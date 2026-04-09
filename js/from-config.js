@@ -10,7 +10,24 @@
     return;
   }
 
-  // ─── TARIFS ────────────────────────────────────────────────────
+  // ─── UTILITAIRES HORAIRES ──────────────────────────────────────
+  // Parse "09h30" → 9.5, "Fermé" → null
+  function parseHeure(str) {
+    const m = str.trim().match(/^(\d+)h(\d+)/);
+    if (!m) return null;
+    return parseInt(m[1]) + parseInt(m[2]) / 60;
+  }
+
+  function renderRows(rows, tableId) {
+    const table = document.getElementById(tableId);
+    if (!table || !rows) return;
+    table.innerHTML = rows.map(r => {
+      const ferme = /ferm/i.test(r.horaire);
+      return `<tr><td>${r.jour}</td><td${ferme ? ' class="ferme"' : ''}>${r.horaire}</td></tr>`;
+    }).join('');
+  }
+
+  // ─── TARIFS (nos-tarifs.html) ──────────────────────────────────
   const tarifsCards = document.getElementById('tarifs-cards');
   if (tarifsCards && config.tarifs) {
     const sessions = config.tarifs.sessions;
@@ -43,22 +60,75 @@
       </div>`;
   }
 
-  // ─── HORAIRES ──────────────────────────────────────────────────
-  function renderRows(rows, tableId) {
-    const table = document.getElementById(tableId);
-    if (!table || !rows) return;
-    table.innerHTML = rows.map(r => {
-      const ferme = /ferm/i.test(r.horaire);
-      return `<tr><td>${r.jour}</td><td${ferme ? ' class="ferme"' : ''}>${r.horaire}</td></tr>`;
-    }).join('');
-  }
-
+  // ─── HORAIRES (nos-horaires.html) ─────────────────────────────
   if (config.horaires) {
     renderRows(config.horaires.interieures, 'table-interieures');
     renderRows(config.horaires.exterieures, 'table-exterieures');
+    renderRows(config.horaires.interieures, 'home-table-int');
+    renderRows(config.horaires.exterieures, 'home-table-ext');
   }
 
-  // ─── FAQ ───────────────────────────────────────────────────────
+  // ─── TARIFS APERCU (index.html) ───────────────────────────────
+  const homeTarifs = document.getElementById('home-tarifs-cards');
+  if (homeTarifs && config.tarifs) {
+    const s = config.tarifs.sessions;
+    const cards = [
+      { session: s[0], label: 'Duo',    featured: false },
+      { session: s[2], label: 'Groupe', featured: true  },
+      { session: s[4], label: 'Équipe', featured: false },
+    ].filter(c => c.session);
+
+    homeTarifs.innerHTML = cards.map(c => `
+      <div class="price-card${c.featured ? ' featured' : ''}">
+        ${c.featured ? '<div class="price-card-badge"><span class="badge badge-gold">Populaire</span></div>' : ''}
+        <h3>${c.label}</h3>
+        <div class="price-amount">${c.session.prix} <span>€</span></div>
+        <p class="price-desc">Pour ${c.session.joueurs} joueurs</p>
+        <a href="reservation.html" class="btn ${c.featured ? 'btn-gold' : 'btn-outline'}" style="width:100%; justify-content:center;">Réserver</a>
+      </div>`).join('');
+  }
+
+  // ─── BADGE OUVERT MAINTENANT (index.html) ─────────────────────
+  const badge = document.getElementById('next-slot-badge');
+  if (badge && config.horaires) {
+    // config.horaires.interieures est ordonné [Lundi, Mardi, ..., Dimanche]
+    // getDay() : 0=Dim, 1=Lun, ..., 6=Sam → config index : 0→6, 1→0, ..., 6→5
+    const cfgIndex = d => d === 0 ? 6 : d - 1;
+    const rows = config.horaires.interieures;
+    const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+    const now   = new Date();
+    const today = now.getDay();
+    const nowH  = now.getHours() + now.getMinutes() / 60;
+
+    let label = '';
+    for (let i = 0; i < 7; i++) {
+      const dayJs = (today + i) % 7;
+      const row   = rows[cfgIndex(dayJs)];
+      if (!row) continue;
+      const opens = parseHeure(row.horaire);
+      if (opens === null) continue; // fermé
+
+      const parts  = row.horaire.split(/\s*[–-]\s*/);
+      const closes = parts[1] ? parseHeure(parts[1]) : null;
+      const openStr = parts[0].trim();
+
+      if (i === 0) {
+        if (nowH >= opens && (closes === null || nowH < closes)) {
+          label = 'Ouvert maintenant'; break;
+        } else if (nowH < opens) {
+          label = `Aujourd'hui à ${openStr}`; break;
+        }
+      } else if (i === 1) {
+        label = `Demain à ${openStr}`; break;
+      } else {
+        label = `${dayNames[dayJs]} à ${openStr}`; break;
+      }
+    }
+
+    if (label) badge.innerHTML = '<span class="next-slot-dot"></span>' + label;
+  }
+
+  // ─── FAQ (faq.html) ───────────────────────────────────────────
   const faqSections = document.getElementById('faq-sections');
   if (faqSections && config.faq) {
     faqSections.innerHTML = config.faq.map(cat => `
@@ -76,9 +146,9 @@
           </div>`).join('')}
       </div>`).join('');
 
-    faqSections.querySelectorAll('.faq-question').forEach(question => {
-      question.addEventListener('click', () => {
-        const item = question.closest('.faq-item');
+    faqSections.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item   = q.closest('.faq-item');
         const isOpen = item.classList.contains('open');
         document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
         if (!isOpen) item.classList.add('open');
@@ -86,7 +156,7 @@
     });
   }
 
-  // ─── SALLES ────────────────────────────────────────────────────
+  // ─── SALLES (nos-aventures.html) ──────────────────────────────
   if (config.salles) {
     config.salles.forEach(salle => {
       const section = document.getElementById(salle.id);
