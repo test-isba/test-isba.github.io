@@ -57,4 +57,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (radio) radio.closest('.room-card')?.click();
   }
 
+  // Soumission du formulaire → sauvegarde sessionStorage → panier
+  const form = document.getElementById('reservation-form');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const room    = document.querySelector('input[name="res-room"]:checked');
+      const players = document.getElementById('res-players');
+      const date    = document.getElementById('res-date');
+      const time    = document.getElementById('res-time');
+      const prices  = { '2': 80, '3': 90, '4': 104, '5': 120, '6': 132 };
+
+      const data = {
+        salle:    room    ? (roomLabels[room.value] || room.value) : '',
+        salleImg: room    ? 'images/' + room.value + '.jpg'        : '',
+        date:     date    ? date.value    : '',
+        joueurs:  players ? players.value : '',
+        creneau:  time    ? time.value    : '',
+        prix:     players ? (prices[players.value] || 0) : 0,
+        prenom:   document.getElementById('res-prenom')?.value || '',
+        nom:      document.getElementById('res-nom')?.value    || '',
+        email:    document.getElementById('res-email')?.value  || '',
+        tel:      document.getElementById('res-tel')?.value    || '',
+        note:     document.getElementById('res-note')?.value   || ''
+      };
+
+      sessionStorage.setItem('reservation', JSON.stringify(data));
+      window.location.href = 'panier.html';
+    });
+  }
+
 });

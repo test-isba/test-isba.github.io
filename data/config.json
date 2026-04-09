@@ -1,0 +1,214 @@
+{
+  "tarifs": {
+    "sessions": [
+      {
+        "joueurs": 2,
+        "prix": 80,
+        "parPersonne": 40,
+        "featured": false
+      },
+      {
+        "joueurs": 3,
+        "prix": 90,
+        "parPersonne": 30,
+        "featured": true
+      },
+      {
+        "joueurs": 4,
+        "prix": 104,
+        "parPersonne": 26,
+        "featured": false
+      },
+      {
+        "joueurs": 5,
+        "prix": 120,
+        "parPersonne": 24,
+        "featured": false
+      },
+      {
+        "joueurs": 6,
+        "prix": 130,
+        "parPersonne": 22,
+        "featured": false
+      }
+    ]
+  },
+  "horaires": {
+    "interieures": [
+      {
+        "jour": "Lundi",
+        "horaire": "fermé"
+      },
+      {
+        "jour": "Mardi",
+        "horaire": "Fermé"
+      },
+      {
+        "jour": "Mercredi",
+        "horaire": "Fermé"
+      },
+      {
+        "jour": "Jeudi",
+        "horaire": "09h30 – 23h00"
+      },
+      {
+        "jour": "Vendredi",
+        "horaire": "09h30 – 23h00"
+      },
+      {
+        "jour": "Samedi",
+        "horaire": "09h30 – 23h00"
+      },
+      {
+        "jour": "Dimanche",
+        "horaire": "09h30 – 23h00"
+      }
+    ],
+    "exterieures": [
+      {
+        "jour": "Lundi",
+        "horaire": "Fermé"
+      },
+      {
+        "jour": "Mardi",
+        "horaire": "13h00 – 19h00"
+      },
+      {
+        "jour": "Mercredi",
+        "horaire": "13h00 – 19h00"
+      },
+      {
+        "jour": "Jeudi",
+        "horaire": "13h00 – 19h00"
+      },
+      {
+        "jour": "Vendredi",
+        "horaire": "13h00 – 19h00"
+      },
+      {
+        "jour": "Samedi",
+        "horaire": "11h00 – 19h00"
+      },
+      {
+        "jour": "Dimanche",
+        "horaire": "Fermé"
+      }
+    ]
+  },
+  "salles": [
+    {
+      "id": "athazagoraphobia",
+      "nom": "Athazagoraphobia",
+      "type": "Salle permanente",
+      "tagline": "La peur d'être oublié.",
+      "description1": "Vous vous réveillez dans une pièce inconnue. Votre identité s'efface peu à peu. Les objets autour de vous semblent vous connaître, mais vous, vous ne reconnaissez rien. Le temps presse.",
+      "description2": "Résolvez les énigmes, percez les mystères de cette demeure et retrouvez votre mémoire avant d'être définitivement oublié.",
+      "joueurs": "2 à 6 joueurs",
+      "duree": "60 minutes",
+      "difficulte": "3/5",
+      "ageMin": "14 ans min."
+    },
+    {
+      "id": "heros-de-midgard",
+      "nom": "Héros de Midgard",
+      "type": "Salle permanente",
+      "tagline": "Le sort du royaume est entre vos mains.",
+      "description1": "Les neuf royaumes sont en péril. Des forces obscures menacent Midgard et seule votre équipe peut les arrêter. Armés de votre courage et de votre intelligence, vous devez accomplir une quête épique.",
+      "description2": "Invoquez la sagesse d'Odin, la force de Thor et l'ingéniosité de Loki pour résoudre les énigmes qui jalonnent votre chemin vers la victoire.",
+      "joueurs": "2 à 6 joueurs",
+      "duree": "60 minutes",
+      "difficulte": "3/5",
+      "ageMin": "10 ans min."
+    },
+    {
+      "id": "ho-ho-ho",
+      "nom": "Ho-Ho-Ho !",
+      "type": "Salle saisonnière",
+      "tagline": "Le Père Noël a besoin de vous !",
+      "description1": "Le traîneau du Père Noël est tombé en panne au-dessus de votre maison ! Pour que les cadeaux soient livrés à temps, vous devez l'aider à réparer son véhicule magique.",
+      "description2": "Une aventure festive et chaleureuse, idéale pour toute la famille. Faites-vous aider par les lutins et retrouvez la magie de Noël !",
+      "joueurs": "2 à 6 joueurs",
+      "duree": "Saisonnier · Hiver",
+      "difficulte": "2/5",
+      "ageMin": "Tout public"
+    }
+  ],
+  "faq": [
+    {
+      "categorie": "Réservation",
+      "questions": [
+        {
+          "question": "Comment réserver une session ?",
+          "reponse": "Vous pouvez réserver directement sur notre site via la page Réserver. Vous pouvez aussi nous appeler au 07 86 28 47 69 ou nous envoyer un email à escape-game@lesportesdelisba.fr."
+        },
+        {
+          "question": "Peut-on annuler ou reporter sa réservation ?",
+          "reponse": "Oui. L'annulation est gratuite jusqu'à 48h avant la session. En dessous de ce délai, nous faisons de notre mieux pour vous proposer un report sur une autre date. Contactez-nous dès que possible."
+        },
+        {
+          "question": "Combien de temps à l'avance faut-il réserver ?",
+          "reponse": "Nous recommandons de réserver au moins quelques jours à l'avance, surtout le week-end où les créneaux partent vite. Pour les événements (anniversaire, EVG, team building), prévoyez 2 à 4 semaines."
+        },
+        {
+          "question": "Est-ce qu'on peut payer sur place ?",
+          "reponse": "Oui, nous acceptons le paiement par carte bancaire et en espèces sur place. Le paiement en ligne sécurisé sera bientôt disponible sur le site."
+        }
+      ]
+    },
+    {
+      "categorie": "Déroulement",
+      "questions": [
+        {
+          "question": "Combien de temps dure une session ?",
+          "reponse": "La session d'escape game dure 60 minutes. Comptez environ 15 minutes supplémentaires pour l'accueil, le briefing et le débriefing. Prévoyez donc 1h30 au total pour votre visite."
+        },
+        {
+          "question": "Combien de joueurs peut-on être dans une salle ?",
+          "reponse": "Chaque salle accueille de 2 à 6 joueurs. Pour les groupes plus nombreux, nous pouvons faire tourner les équipes sur les deux salles disponibles. Contactez-nous pour les groupes de plus de 12 personnes."
+        },
+        {
+          "question": "Y a-t-il un maître du jeu pendant la session ?",
+          "reponse": "Oui. Notre maître du jeu est disponible tout au long de la session via un système d'interphone. Il peut vous accorder des indices si vous êtes bloqués et veille à votre sécurité."
+        },
+        {
+          "question": "Peut-on sortir de la salle si on se sent mal ?",
+          "reponse": "Absolument. Les portes peuvent être ouvertes à tout moment de l'intérieur. La sécurité des joueurs est notre priorité. Si vous souffrez de claustrophobie sévère, nous vous conseillons d'en parler avec nous avant de réserver."
+        }
+      ]
+    },
+    {
+      "categorie": "Public & accessibilité",
+      "questions": [
+        {
+          "question": "À partir de quel âge peut-on participer ?",
+          "reponse": "Nos salles sont accessibles à partir de 10 ans, accompagnés d'un adulte. Les enfants plus jeunes peuvent participer selon les salles, contactez-nous pour en discuter. Les adultes peuvent jouer seuls à partir de 18 ans."
+        },
+        {
+          "question": "Le lieu est-il accessible aux personnes à mobilité réduite ?",
+          "reponse": "Notre lieu dispose d'un accès de plain-pied et d'un grand parking. Cependant, certaines parties du décor peuvent présenter des contraintes. Contactez-nous avant votre visite et nous ferons tout pour adapter l'expérience à vos besoins."
+        },
+        {
+          "question": "Les débutants peuvent-ils jouer ?",
+          "reponse": "Bien sûr ! Nos salles sont adaptées à tous les niveaux. Le maître du jeu vous briefera avant la session et vous pourrez demander des indices si nécessaire. L'important, c'est de s'amuser !"
+        }
+      ]
+    },
+    {
+      "categorie": "Informations pratiques",
+      "questions": [
+        {
+          "question": "Y a-t-il un parking sur place ?",
+          "reponse": "Oui, nous disposons d'un parking très vaste et entièrement gratuit. Pas de contrainte de stationnement, même pour les grands groupes."
+        },
+        {
+          "question": "Peut-on apporter à manger ou à boire ?",
+          "reponse": "Les salles de jeu sont des espaces sans nourriture ni boisson. En revanche, nous disposons d'un espace d'accueil où vous pouvez vous installer avant et après la session. Pour les événements privés, nous proposons des formules boissons."
+        },
+        {
+          "question": "Que faire si on n'arrive pas à s'échapper ?",
+          "reponse": "Ne vous inquiétez pas, c'est ce qui arrive à beaucoup de groupes ! À la fin des 60 minutes, le maître du jeu vous accompagne et vous révèle les mystères que vous n'avez pas résolus. C'est souvent le moment le plus fun de la session."
+        }
+      ]
+    }
+  ]
+}

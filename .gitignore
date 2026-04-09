@@ -7,3 +7,9 @@ tmp/
 CLAUDE.md
 tasks/
 .claude/
+
+# Fichiers internes - ne pas déployer
+docs/
+A FAIRE.txt
+images/anniversaire.html
+images/anniversaire_files/
