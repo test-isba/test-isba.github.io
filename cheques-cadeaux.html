@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Offrez une aventure inoubliable avec les bons cadeaux des Portes de l'Isba. Valable pour toute session d'escape game à Troyes.">
+  <title>Bons Cadeaux · Les Portes de l'Isba</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#BD8A1E">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Les Portes de l'Isba">
+  <meta property="og:title" content="Bons Cadeaux · Les Portes de l'Isba">
+  <meta property="og:description" content="Offrez une expérience d'escape game inoubliable à vos proches. Bon cadeau valable pour 2 à 6 joueurs aux Portes de l'Isba à Troyes.">
+  <meta property="og:image" content="images/Logo.jpg">
+  <meta property="og:locale" content="fr_FR">
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+<div class="nav-spacer"></div>
+
+<div class="page-hero">
+  <p class="page-hero-eyebrow">L'aventure à offrir</p>
+  <h1>Bons Cadeaux</h1>
+  <p>Faites plaisir à ceux que vous aimez avec un bon cadeau pour une session d'escape game inoubliable.</p>
+</div>
+
+<!-- ========== COMMENT CA MARCHE ========== -->
+<section style="background:var(--bg-2);border-bottom:1px solid var(--border-dim);">
+  <div class="container container--narrow">
+    <div class="section-header">
+      <h2>Comment ça marche ?</h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="grid-3 reveal">
+      <div style="text-align:center;padding:24px;">
+        <div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:rgba(189,138,30,.12);border:1px solid var(--gold);margin-bottom:20px;">
+          <span style="color:var(--gold);font-family:var(--font-heading);font-size:1.3rem;font-weight:700;">1</span>
+        </div>
+        <h3 style="font-size:1rem;margin-bottom:10px;">Choisissez un montant</h3>
+        <p style="color:var(--text-muted);font-size:.9rem;">Sélectionnez la formule qui correspond à votre groupe parmi nos tarifs.</p>
+      </div>
+      <div style="text-align:center;padding:24px;">
+        <div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:rgba(189,138,30,.12);border:1px solid var(--gold);margin-bottom:20px;">
+          <span style="color:var(--gold);font-family:var(--font-heading);font-size:1.3rem;font-weight:700;">2</span>
+        </div>
+        <h3 style="font-size:1rem;margin-bottom:10px;">Contactez-nous</h3>
+        <p style="color:var(--text-muted);font-size:.9rem;">Appelez-nous ou écrivez-nous. Nous préparons votre bon cadeau personnalisé.</p>
+      </div>
+      <div style="text-align:center;padding:24px;">
+        <div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:rgba(189,138,30,.12);border:1px solid var(--gold);margin-bottom:20px;">
+          <span style="color:var(--gold);font-family:var(--font-heading);font-size:1.3rem;font-weight:700;">3</span>
+        </div>
+        <h3 style="font-size:1rem;margin-bottom:10px;">Recevez votre bon</h3>
+        <p style="color:var(--text-muted);font-size:.9rem;">Votre bon cadeau est envoyé par email. À imprimer ou à offrir tel quel !</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TARIFS BONS CADEAUX ========== -->
+<section>
+  <div class="container container--narrow">
+    <div class="section-header">
+      <h2>Choisissez votre formule</h2>
+      <p>Chaque bon cadeau correspond à une session complète de 60 minutes dans la salle de votre choix.</p>
+      <div class="gold-line"></div>
+    </div>
+
+    <div id="cheques-cadeaux-cards">
+      <!-- Injecté dynamiquement par from-config.js -->
+      <div class="grid-3 reveal visible" style="margin-bottom:48px;">
+        <div class="price-card">
+          <h3>2 joueurs</h3>
+          <div class="price-amount">80 <span>€</span></div>
+          <p class="price-desc">40 € par personne</p>
+          <a href="nous-contacter.html?sujet=Bon+cadeau" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:16px;">Commander ce bon</a>
+        </div>
+        <div class="price-card featured">
+          <div class="price-card-badge"><span class="badge badge-gold">Le plus offert</span></div>
+          <h3>3 joueurs</h3>
+          <div class="price-amount">90 <span>€</span></div>
+          <p class="price-desc">30 € par personne</p>
+          <a href="nous-contacter.html?sujet=Bon+cadeau" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:16px;">Commander ce bon</a>
+        </div>
+        <div class="price-card">
+          <h3>4 joueurs</h3>
+          <div class="price-amount">104 <span>€</span></div>
+          <p class="price-desc">26 € par personne</p>
+          <a href="nous-contacter.html?sujet=Bon+cadeau" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:16px;">Commander ce bon</a>
+        </div>
+      </div>
+      <div class="grid-2 reveal visible" style="max-width:740px;margin:0 auto 48px;">
+        <div class="price-card">
+          <h3>5 joueurs</h3>
+          <div class="price-amount">120 <span>€</span></div>
+          <p class="price-desc">24 € par personne</p>
+          <a href="nous-contacter.html?sujet=Bon+cadeau" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:16px;">Commander ce bon</a>
+        </div>
+        <div class="price-card">
+          <h3>6 joueurs</h3>
+          <div class="price-amount">130 <span>€</span></div>
+          <p class="price-desc">22 € par personne</p>
+          <a href="nous-contacter.html?sujet=Bon+cadeau" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:16px;">Commander ce bon</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== CONDITIONS ========== -->
+<section style="background:var(--bg-2);border-top:1px solid var(--border-dim);">
+  <div class="container container--narrow">
+    <div class="grid-2 reveal" style="gap:40px;">
+      <div style="background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);padding:32px;">
+        <h3 style="color:var(--gold);margin-bottom:16px;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;">Validité</h3>
+        <ul style="color:var(--text-muted);line-height:2;list-style:none;padding:0;">
+          <li>Valable 1 an à compter de la date d'émission</li>
+          <li>Utilisable pour toutes nos salles disponibles</li>
+          <li>Non remboursable, non échangeable contre de l'argent</li>
+          <li>Transmissible à une autre personne</li>
+        </ul>
+      </div>
+      <div style="background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);padding:32px;">
+        <h3 style="color:var(--gold);margin-bottom:16px;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;">Utilisation</h3>
+        <ul style="color:var(--text-muted);line-height:2;list-style:none;padding:0;">
+          <li>Réserver une session avec votre bon cadeau</li>
+          <li>Mentionner le code lors de la réservation</li>
+          <li>Paiement sur place si complément nécessaire</li>
+          <li>Un code par session</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA ========== -->
+<section style="padding:72px 0;border-top:1px solid var(--border);">
+  <div class="container" style="text-align:center;">
+    <h2 style="margin-bottom:16px;">Prêt à offrir l'aventure ?</h2>
+    <p style="color:var(--text-muted);max-width:480px;margin:0 auto 32px;">
+      Appelez-nous ou écrivez-nous. Nous préparons votre bon cadeau sous 24h.
+    </p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="nous-contacter.html?sujet=Bon+cadeau" class="btn btn-gold btn-lg">Commander un bon cadeau</a>
+      <a href="tel:0786284769" class="btn btn-outline btn-lg">07 86 28 47 69</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+<script src="js/components.js"></script>
+<script src="js/main.js"></script>
+<script src="js/from-config.js"></script>
+</body>
+</html>

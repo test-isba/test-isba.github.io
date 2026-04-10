@@ -71,11 +71,12 @@ const HEADER_HTML = `
 </nav>
 
 <div class="nav-mobile" id="nav-mobile">
-  <a href="nos-aventures.html" class="nav-mobile-link">Nos Aventures</a>
-  <a href="nos-tarifs.html"    class="nav-mobile-link">Tarifs</a>
-  <a href="team-building.html" class="nav-mobile-link">Team Building</a>
-  <a href="evenements.html"    class="nav-mobile-link">Événements</a>
-  <a href="faq.html"           class="nav-mobile-link">FAQ</a>
+  <a href="nos-aventures.html"    class="nav-mobile-link">Nos Aventures</a>
+  <a href="nos-tarifs.html"      class="nav-mobile-link">Tarifs</a>
+  <a href="cheques-cadeaux.html" class="nav-mobile-link">Bons Cadeaux</a>
+  <a href="team-building.html"   class="nav-mobile-link">Team Building</a>
+  <a href="evenements.html"      class="nav-mobile-link">Événements</a>
+  <a href="faq.html"             class="nav-mobile-link">FAQ</a>
   <div class="nav-mobile-sep"></div>
   <a href="qui-sommes-nous.html" class="nav-mobile-link">Qui sommes-nous ?</a>
   <a href="histoire-isba.html"   class="nav-mobile-link">Histoire de l'Isba</a>
@@ -110,8 +111,9 @@ const FOOTER_HTML = `
       <div>
         <p class="footer-col-title">Navigation</p>
         <div class="footer-links">
-          <a href="nos-aventures.html"   class="footer-link">Nos Aventures</a>
+          <a href="nos-aventures.html"    class="footer-link">Nos Aventures</a>
           <a href="nos-tarifs.html"      class="footer-link">Nos Tarifs</a>
+          <a href="cheques-cadeaux.html" class="footer-link">Bons Cadeaux</a>
           <a href="team-building.html"   class="footer-link">Team Building</a>
           <a href="evenements.html"      class="footer-link">Événements</a>
           <a href="faq.html"             class="footer-link">FAQ</a>

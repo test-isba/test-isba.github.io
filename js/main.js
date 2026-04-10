@@ -169,6 +169,16 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---- Formulaire contact (Formspree) ---- */
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
+    // Pré-remplissage du sujet via URL (?sujet=Bon+cadeau)
+    const sujetParam = new URLSearchParams(window.location.search).get('sujet');
+    if (sujetParam) {
+      const sujetSelect = contactForm.querySelector('[name="sujet"]');
+      if (sujetSelect) {
+        Array.from(sujetSelect.options).forEach(opt => {
+          if (opt.text.toLowerCase().includes(sujetParam.toLowerCase())) opt.selected = true;
+        });
+      }
+    }
     // Remplacez XXXXXXXX par votre ID Formspree (formspree.io)
     const FORMSPREE = 'https://formspree.io/f/XXXXXXXX';
     const isConfigured = !FORMSPREE.includes('XXXXXXXX');

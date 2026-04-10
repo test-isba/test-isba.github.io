@@ -156,6 +156,32 @@
     });
   }
 
+  // ─── BONS CADEAUX (cheques-cadeaux.html) ─────────────────────
+  const gcCards = document.getElementById('cheques-cadeaux-cards');
+  if (gcCards && config.tarifs) {
+    const sessions = config.tarifs.sessions;
+
+    function giftCard(s) {
+      const featured = !!s.featured;
+      return `
+        <div class="price-card${featured ? ' featured' : ''}">
+          ${featured ? '<div class="price-card-badge"><span class="badge badge-gold">Le plus offert</span></div>' : ''}
+          <h3>${s.joueurs} joueurs</h3>
+          <div class="price-amount">${s.prix} <span>€</span></div>
+          <p class="price-desc">${s.parPersonne} € par personne</p>
+          <a href="nous-contacter.html?sujet=Bon+cadeau" class="btn ${featured ? 'btn-gold' : 'btn-outline'}" style="width:100%;justify-content:center;margin-top:16px;">Commander ce bon</a>
+        </div>`;
+    }
+
+    gcCards.innerHTML =
+      `<div class="grid-3 reveal visible" style="margin-bottom:48px;">
+        ${sessions.slice(0, 3).map(s => giftCard(s)).join('')}
+      </div>
+      <div class="grid-2 reveal visible" style="max-width:740px;margin:0 auto 48px;">
+        ${sessions.slice(3).map(s => giftCard(s)).join('')}
+      </div>`;
+  }
+
   // ─── SALLES (nos-aventures.html) ──────────────────────────────
   if (config.salles) {
     config.salles.forEach(salle => {
