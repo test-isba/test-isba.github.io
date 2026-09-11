@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---- Formulaire contact (Formspree) ---- */
+  /* ---- Formulaire contact (Resend via Netlify function) ---- */
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     // Pré-remplissage du sujet via URL (?sujet=Bon+cadeau)
@@ -179,9 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
     }
-    // Remplacez XXXXXXXX par votre ID Formspree (formspree.io)
-    const FORMSPREE = 'https://formspree.io/f/XXXXXXXX';
-    const isConfigured = !FORMSPREE.includes('XXXXXXXX');
 
     contactForm.addEventListener('submit', async e => {
       e.preventDefault();
@@ -190,20 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = 'Envoi en cours...';
       btn.disabled = true;
 
-      if (!isConfigured) {
-        // Mode démo — simule l'envoi
-        await new Promise(r => setTimeout(r, 1200));
-        btn.textContent = 'Message envoyé !';
-        btn.style.background = '#16a34a';
-        setTimeout(() => { btn.textContent = orig; btn.disabled = false; btn.style.background = ''; contactForm.reset(); }, 3000);
-        return;
-      }
+      const data = Object.fromEntries(new FormData(contactForm));
+      data.type = 'contact';
 
       try {
-        const res = await fetch(FORMSPREE, {
+        const res = await fetch('/.netlify/functions/send-contact', {
           method: 'POST',
-          body: new FormData(contactForm),
-          headers: { 'Accept': 'application/json' }
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
         });
         if (!res.ok) throw new Error();
         btn.textContent = 'Message envoyé !';

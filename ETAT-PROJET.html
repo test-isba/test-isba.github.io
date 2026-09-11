@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Etat du projet — Les Portes de l'Isba</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: system-ui, sans-serif; background: #0f0f0f; color: #e0e0e0; padding: 40px 24px; }
+    h1 { font-size: 22px; color: #c9982a; margin-bottom: 6px; }
+    .subtitle { font-size: 13px; color: #666; margin-bottom: 40px; }
+    .bloc { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 20px 24px; margin-bottom: 20px; }
+    .bloc-title { font-size: 15px; font-weight: 700; color: #c9982a; margin-bottom: 16px; letter-spacing: .04em; text-transform: uppercase; }
+    .item { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; border-bottom: 1px solid #222; font-size: 13px; line-height: 1.5; }
+    .item:last-child { border-bottom: none; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .ok   { background: #2ecc71; box-shadow: 0 0 6px rgba(46,204,113,.4); }
+    .nok  { background: #e05252; box-shadow: 0 0 6px rgba(224,82,82,.4); }
+    .warn { background: #f39c12; box-shadow: 0 0 6px rgba(243,156,18,.4); }
+    .label { color: #e0e0e0; font-weight: 500; }
+    .note  { color: #666; font-size: 12px; margin-top: 2px; }
+    .tag { display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 99px; margin-left: 6px; font-weight: 600; vertical-align: middle; }
+    .tag-wait { background: rgba(243,156,18,.15); color: #f39c12; border: 1px solid rgba(243,156,18,.3); }
+    .section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 700px) { .section-grid { grid-template-columns: 1fr; } }
+    .legend { display: flex; gap: 20px; margin-bottom: 24px; font-size: 12px; color: #666; }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Les Portes de l'Isba — Etat du projet</h1>
+  <p class="subtitle">Derniere mise a jour : 10 avril 2026</p>
+
+  <div class="legend">
+    <div class="legend-item"><div class="dot ok"></div> Fait</div>
+    <div class="legend-item"><div class="dot nok"></div> A faire</div>
+    <div class="legend-item"><div class="dot warn"></div> En attente client</div>
+  </div>
+
+  <div class="section-grid">
+
+    <!-- SITE VITRINE -->
+    <div class="bloc">
+      <div class="bloc-title">Site vitrine (C:\dev\vente)</div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">12 pages HTML completes</div>
+        <div class="note">index, nos-aventures, nos-horaires, nos-tarifs, faq, qui-sommes-nous, team-building, evenements, nous-contacter, cheques-cadeaux, cgv, politique-confidentialite</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Pages utilitaires</div>
+        <div class="note">404.html, reservation-confirmee.html</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Contenu dynamique depuis config.json</div>
+        <div class="note">js/from-config.js — tarifs, horaires, badge, FAQ, salles, bons cadeaux</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">SEO complet</div>
+        <div class="note">OG tags, theme-color, favicon.svg, robots.txt, sitemap.xml, Schema.org JSON-LD</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Securite</div>
+        <div class="note">CSP stricte sur toutes les pages, rel="noopener noreferrer" partout</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Fonctionnalites JS</div>
+        <div class="note">Loader, parallaxe, cookie RGPD, back-to-top, transitions, lightbox, badge prochain creneau</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Page bons cadeaux</div>
+        <div class="note">cheques-cadeaux.html — tarifs dynamiques, CTA vers formulaire contact</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Formulaire devis team building</div>
+        <div class="note">js/devis-form.js — inline sur team-building.html</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Paiement en ligne Stripe</div>
+        <div class="note">netlify/functions/create-checkout.js + reservation.js — code pret, attend cle Stripe</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Repo GitHub</div>
+        <div class="note">github.com/test-isba/test-isba.github.io — clone local dans C:\dev\vente</div>
+      </div></div>
+
+      <div class="item"><div class="dot warn"></div><div>
+        <div class="label">Formspree ID <span class="tag tag-wait">Attente client</span></div>
+        <div class="note">Remplacer XXXXXXXX dans js/main.js (~ligne 173) et js/devis-form.js</div>
+      </div></div>
+
+      <div class="item"><div class="dot warn"></div><div>
+        <div class="label">Stripe + Netlify <span class="tag tag-wait">Attente client</span></div>
+        <div class="note">Client cree compte Stripe → cle sk_live_... → connecter repo GitHub sur Netlify → ajouter STRIPE_SECRET_KEY → deployer</div>
+      </div></div>
+
+    </div>
+
+    <!-- ADMIN -->
+    <div class="bloc">
+      <div class="bloc-title">App Admin Electron (C:\dev\isba-admin)</div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Gestion du contenu site</div>
+        <div class="note">Tarifs, horaires, salles, FAQ — modification et publication GitHub en un clic</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Detection automatique du chemin vente</div>
+        <div class="note">findVentePath() — pointe vers C:\dev\vente en dev, s'adapte a la cle USB en production</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Gestion bons cadeaux</div>
+        <div class="note">Creer, lister, filtrer (actif/utilise/expire), recherche, marquer utilise, supprimer</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Impression ticket bon cadeau</div>
+        <div class="note">Theme escape game sombre, QR code dore genere en local (package qrcode)</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Serveur de verification local (port 3737)</div>
+        <div class="note">Demarre automatiquement — GET /api/verify?code=XXX retourne JSON</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Section Mode Vendeur</div>
+        <div class="note">IP locale + QR de connexion + bouton ouverture pare-feu Windows</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Publication site GitHub</div>
+        <div class="note">Bouton "Publier le site" — git add/commit/push automatique</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Build exe portable</div>
+        <div class="note">dist\Isba Admin 1.0.1.exe — genere le 10 avril 2026</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Auto-refresh en temps reel</div>
+        <div class="note">fs.watch (debounce 300ms) sur gift-cards.json — logiciel se recharge quand le scanner modifie un bon</div>
+      </div></div>
+
+      <div class="item"><div class="dot nok"></div><div>
+        <div class="label">Preparer livraison client</div>
+        <div class="note">Cle USB remplacee ou livraison par dossier — structure : vente/ + isba-admin/dist/</div>
+      </div></div>
+
+    </div>
+
+    <!-- SCANNER -->
+    <div class="bloc">
+      <div class="bloc-title">App Scanner (C:\dev\isba-scanner)</div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Scanner QR code par camera</div>
+        <div class="note">expo-camera + CameraView — cadre de scan dore, detection automatique</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Verification en temps reel</div>
+        <div class="note">GET /api/verify sur le serveur admin — resultat vert/rouge instantane</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Ecran reglages IP + test connexion</div>
+        <div class="note">Saisie IP serveur + bouton Tester avec message d'erreur precis</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Actions Valider / Supprimer depuis l'app</div>
+        <div class="note">Apres scan : boutons Valider et Supprimer — mise a jour immediate du logiciel admin</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Timer annulation 5 secondes</div>
+        <div class="note">Apres validation : 5s pour annuler (restore). Apres suppression : 5s de delai avant suppression definitive</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">APK Android disponible</div>
+        <div class="note">expo.dev/accounts/jibrilfilali/projects/isba-scanner-app/builds/53c72ce6...</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Verification iPhone via navigateur</div>
+        <div class="note">http://[IP]:3737 depuis Safari — saisie manuelle du code (pas de camera en HTTP)</div>
+      </div></div>
+
+      <div class="item"><div class="dot nok"></div><div>
+        <div class="label">iOS natif (optionnel)</div>
+        <div class="note">Necessite Apple Developer Account (99€/an) + TestFlight</div>
+      </div></div>
+
+    </div>
+
+    <!-- LIVRAISON -->
+    <div class="bloc">
+      <div class="bloc-title">Livraison client</div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">Build exe admin</div>
+        <div class="note">dist\Isba Admin 1.0.1.exe — genere le 10 avril 2026</div>
+      </div></div>
+
+      <div class="item"><div class="dot nok"></div><div>
+        <div class="label">Preparer les fichiers a livrer</div>
+        <div class="note">Copier C:\dev\vente\ et C:\dev\isba-admin\dist\ sur une nouvelle cle USB ou dossier</div>
+      </div></div>
+
+      <div class="item"><div class="dot ok"></div><div>
+        <div class="label">APK Android</div>
+        <div class="note">Telecharge depuis expo.dev — a envoyer au client par WhatsApp ou email</div>
+      </div></div>
+
+      <div class="item"><div class="dot nok"></div><div>
+        <div class="label">Regle pare-feu Windows (chez le client)</div>
+        <div class="note">netsh advfirewall firewall add rule name="Isba Scanner" dir=in action=allow protocol=TCP localport=3737</div>
+      </div></div>
+
+      <div class="item"><div class="dot warn"></div><div>
+        <div class="label">Compte Stripe <span class="tag tag-wait">Attente client</span></div>
+        <div class="note">Client cree le compte → donne cle sk_live_... → configurer dans Netlify</div>
+      </div></div>
+
+      <div class="item"><div class="dot warn"></div><div>
+        <div class="label">Compte Formspree <span class="tag tag-wait">Attente client</span></div>
+        <div class="note">Client cree le compte → donne l'ID → remplacer XXXXXXXX dans js/main.js et js/devis-form.js</div>
+      </div></div>
+
+      <div class="item"><div class="dot warn"></div><div>
+        <div class="label">Deploiement Netlify <span class="tag tag-wait">Attente Stripe</span></div>
+        <div class="note">Connecter repo GitHub → ajouter STRIPE_SECRET_KEY → deployer → paiements actifs</div>
+      </div></div>
+
+    </div>
+
+  </div>
+</body>
+</html>
