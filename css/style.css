@@ -1088,31 +1088,6 @@ section { padding: 96px 0; }
 .hero h1 { position: relative; }
 .hero h1.glitch { animation: glitch-filter 0.5s steps(1) 1 forwards; }
 
-/* ---- CURSEUR CLE ---- */
-@media (pointer: fine) {
-  * { cursor: none !important; }
-  #cursor-key {
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    width: 26px;
-    height: 26px;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    transition: transform 0.2s ease, filter 0.2s, opacity 0.3s;
-    filter: drop-shadow(0 0 3px rgba(189,138,30,.5));
-    opacity: 0;
-  }
-  #cursor-key svg { width: 100%; height: 100%; stroke: var(--gold); fill: none; }
-  #cursor-key.visible { opacity: 1; }
-  #cursor-key.hover {
-    transform: translate(-50%, -50%) rotate(-30deg) scale(1.3);
-    filter: drop-shadow(0 0 8px rgba(189,138,30,.9));
-  }
-  #cursor-key.hover svg { stroke: var(--gold-light); }
-}
-
 /* ---- RÉSERVATION : grille responsive ---- */
 .grid-res {
   display: grid;
