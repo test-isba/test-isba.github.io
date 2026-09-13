@@ -1,33 +1,29 @@
 'use strict';
 
+// Formulaire de devis team building : envoi par la messagerie du visiteur (voir ouvrirEmail dans main.js)
 document.addEventListener('DOMContentLoaded', () => {
   const devisForm = document.getElementById('devis-form');
   if (!devisForm) return;
 
-  devisForm.addEventListener('submit', async e => {
+  devisForm.addEventListener('submit', e => {
     e.preventDefault();
-    const btn  = devisForm.querySelector('[type="submit"]');
-    const orig = btn.textContent;
-    btn.textContent = 'Envoi en cours...';
-    btn.disabled    = true;
-
     const data = Object.fromEntries(new FormData(devisForm));
-    data.type = 'devis';
 
-    try {
-      const res = await fetch('/.netlify/functions/send-contact', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(data)
-      });
-      if (!res.ok) throw new Error();
-      btn.textContent      = 'Demande envoyée !';
-      btn.style.background = '#16a34a';
-      setTimeout(() => { btn.textContent = orig; btn.disabled = false; btn.style.background = ''; devisForm.reset(); }, 3000);
-    } catch {
-      btn.textContent      = 'Erreur, réessayez';
-      btn.style.background = '#dc2626';
-      setTimeout(() => { btn.textContent = orig; btn.disabled = false; btn.style.background = ''; }, 3000);
-    }
+    ouvrirEmail('Demande de devis team building — ' + data.entreprise, [
+      'Bonjour,',
+      '',
+      'Je souhaite recevoir un devis pour un team building.',
+      '',
+      'Entreprise : ' + data.entreprise,
+      'Participants : ' + data.effectif,
+      data.date ? 'Date souhaitée : ' + dateFr(data.date) : null,
+      data.message ? '\r\n' + data.message : null,
+      '',
+      '---',
+      [data.prenom, data.nom].filter(Boolean).join(' '),
+      'Email : ' + data.email,
+      data.telephone ? 'Téléphone : ' + data.telephone : null,
+    ]);
+    signalerEmailOuvert(devisForm);
   });
 });

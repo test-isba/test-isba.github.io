@@ -9,7 +9,7 @@ const roomLabels = {
 document.addEventListener('DOMContentLoaded', async () => {
 
   // Chargement des prix depuis config.json
-  let prices = { '2': 80, '3': 90, '4': 104, '5': 120, '6': 132 };
+  let prices = { '2': 80, '3': 90, '4': 104, '5': 120, '6': 130 };
   try {
     const res = await fetch('data/config.json');
     if (res.ok) {
@@ -24,6 +24,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
   } catch (_) { /* fallback aux prix par défaut */ }
+
+  // Libellés de la liste « Nombre de joueurs » alignés sur les prix de config.json (modifiés dans Isba Admin)
+  document.querySelectorAll('#res-players option[value]').forEach(opt => {
+    if (opt.value && prices[opt.value] != null) opt.textContent = opt.value + ' joueurs · ' + prices[opt.value] + ' €';
+  });
 
   // Sélection de salle par clic sur la card
   document.querySelectorAll('.room-card').forEach(card => {
@@ -73,54 +78,45 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (radio) radio.closest('.room-card')?.click();
   }
 
-  // Soumission du formulaire → Stripe Checkout via fonction Netlify
+  // Soumission : demande de réservation envoyée par la messagerie du visiteur (voir ouvrirEmail dans main.js)
   const form = document.getElementById('reservation-form');
   if (form) {
-    form.addEventListener('submit', async e => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
 
-      const submitBtn = form.querySelector('[type="submit"]');
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Redirection vers le paiement…'; }
-
-      const room    = document.querySelector('input[name="res-room"]:checked');
-      const players = document.getElementById('res-players')?.value || '';
-      const date    = document.getElementById('res-date')?.value    || '';
-      const time    = document.getElementById('res-time')?.value    || '';
-
-      const dateStr = date
-        ? new Date(date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
-        : '';
-
-      const payload = {
-        salle:   room ? (roomLabels[room.value] || room.value) : '',
-        joueurs: players,
-        date:    dateStr,
-        creneau: time,
-        prenom:  document.getElementById('res-prenom')?.value || '',
-        nom:     document.getElementById('res-nom')?.value    || '',
-        email:   document.getElementById('res-email')?.value  || '',
-        tel:     document.getElementById('res-tel')?.value    || '',
-        note:    document.getElementById('res-note')?.value   || '',
-      };
-
-      try {
-        const res  = await fetch('/.netlify/functions/create-checkout', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify(payload),
-        });
-
-        const data = await res.json();
-
-        if (!res.ok || !data.url) {
-          throw new Error(data.error || 'Erreur serveur');
-        }
-
-        window.location.href = data.url;
-      } catch (err) {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Réserver'; }
-        alert('Une erreur est survenue : ' + err.message + '\nVeuillez réessayer ou nous contacter par téléphone.');
+      const room = document.querySelector('input[name="res-room"]:checked');
+      if (!room) {
+        alert("Choisissez d'abord votre aventure (étape 1).");
+        document.querySelector('.room-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
       }
+
+      const valeur  = id => document.getElementById(id)?.value.trim() || '';
+      const salle   = roomLabels[room.value] || room.value;
+      const players = valeur('res-players');
+      const date    = dateFr(valeur('res-date'));
+      const time    = valeur('res-time');
+      const note    = valeur('res-note');
+
+      ouvrirEmail('Réservation — ' + salle + ' — ' + date + ' à ' + time, [
+        'Bonjour,',
+        '',
+        'Je souhaite réserver une session :',
+        '',
+        'Salle : ' + salle,
+        'Date : ' + date,
+        'Créneau : ' + time,
+        'Joueurs : ' + players,
+        'Tarif : ' + (prices[players] ?? '—') + ' € (règlement sur place)',
+        '',
+        note ? 'Informations complémentaires : ' + note : null,
+        note ? '' : null,
+        '---',
+        valeur('res-prenom') + ' ' + valeur('res-nom'),
+        'Email : ' + valeur('res-email'),
+        'Téléphone : ' + valeur('res-tel'),
+      ]);
+      signalerEmailOuvert(form);
     });
   }
 

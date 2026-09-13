@@ -4,6 +4,43 @@
    Les Portes de l'Isba — Interactions principales
    ============================================================ */
 
+/* ---- Envoi des formulaires par la messagerie du visiteur ----
+   Le site est hébergé sur GitHub Pages (fichiers statiques, aucun serveur) :
+   les formulaires ouvrent la messagerie avec un email pré-rempli.
+   Utilisé aussi par reservation.js et devis-form.js (chargés après ce fichier). */
+const ISBA_EMAIL = 'escape-game@lesportesdelisba.fr';
+const ISBA_TEL   = '07 86 28 47 69';
+
+function ouvrirEmail(sujet, lignes) {
+  const corps = lignes.filter(l => l !== null).join('\r\n');
+  window.location.href = 'mailto:' + ISBA_EMAIL
+    + '?subject=' + encodeURIComponent(sujet)
+    + '&body=' + encodeURIComponent(corps);
+}
+
+// "2026-09-20" → "20 septembre 2026" (T00:00 : date locale, pas UTC)
+function dateFr(iso) {
+  return iso
+    ? new Date(iso + 'T00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
+    : '';
+}
+
+// Après ouverture de la messagerie : rappel d'envoyer l'email + solution si rien ne s'est ouvert
+function signalerEmailOuvert(form) {
+  const btn = form.querySelector('[type="submit"]');
+  let aide = form.querySelector('.email-aide');
+  if (!aide) {
+    aide = document.createElement('p');
+    aide.className = 'email-aide';
+    aide.setAttribute('role', 'status');
+    aide.style.cssText = 'text-align:center;font-size:.85rem;color:var(--text-muted);margin-top:12px;line-height:1.6;';
+    aide.innerHTML = 'Votre messagerie s&apos;est ouverte avec votre demande : pensez à <strong style="color:var(--text);">envoyer l&apos;email</strong>.<br>'
+      + 'Rien ne s&apos;est ouvert ? Écrivez-nous à <a href="mailto:' + ISBA_EMAIL + '" style="color:var(--gold);">' + ISBA_EMAIL + '</a>'
+      + ' ou appelez le <a href="tel:' + ISBA_TEL.replace(/\s/g, '') + '" style="color:var(--gold);white-space:nowrap;">' + ISBA_TEL + '</a>.';
+    btn.insertAdjacentElement('afterend', aide);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ---- Barre de progression scroll ---- */
@@ -151,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---- Formulaire contact (Resend via Netlify function) ---- */
+  /* ---- Formulaire contact (messagerie du visiteur) ---- */
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     // Pré-remplissage du sujet via URL (?sujet=Bon+cadeau)
@@ -165,31 +202,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    contactForm.addEventListener('submit', async e => {
+    contactForm.addEventListener('submit', e => {
       e.preventDefault();
-      const btn = contactForm.querySelector('[type="submit"]');
-      const orig = btn.textContent;
-      btn.textContent = 'Envoi en cours...';
-      btn.disabled = true;
-
       const data = Object.fromEntries(new FormData(contactForm));
-      data.type = 'contact';
+      const nomComplet = [data.prenom, data.nom].filter(Boolean).join(' ');
 
-      try {
-        const res = await fetch('/.netlify/functions/send-contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        if (!res.ok) throw new Error();
-        btn.textContent = 'Message envoyé !';
-        btn.style.background = '#16a34a';
-        setTimeout(() => { btn.textContent = orig; btn.disabled = false; btn.style.background = ''; contactForm.reset(); }, 3000);
-      } catch {
-        btn.textContent = 'Erreur, réessayez';
-        btn.style.background = '#dc2626';
-        setTimeout(() => { btn.textContent = orig; btn.disabled = false; btn.style.background = ''; }, 3000);
-      }
+      ouvrirEmail(data.sujet + ' — ' + nomComplet, [
+        'Bonjour,',
+        '',
+        data.message,
+        '',
+        '---',
+        nomComplet,
+        'Email : ' + data.email,
+        data.telephone ? 'Téléphone : ' + data.telephone : null,
+      ]);
+      signalerEmailOuvert(contactForm);
     });
   }
 

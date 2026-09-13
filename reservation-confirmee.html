@@ -24,9 +24,9 @@
       </svg>
     </div>
 
-    <h1 style="color:var(--gold); margin-bottom:16px;">Paiement confirmé !</h1>
+    <h1 style="color:var(--gold); margin-bottom:16px;">Demande envoyée !</h1>
     <p style="color:var(--text-muted); margin-bottom:40px; font-size:1.1rem;">
-      Votre réservation est enregistrée. Un email de confirmation vous a été envoyé par Stripe.
+      Nous vous confirmons votre réservation par email ou par téléphone sous 24h. Le règlement se fait sur place.
     </p>
 
     <div id="booking-recap" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:36px; margin-bottom:40px; text-align:left; max-width:480px; margin-left:auto; margin-right:auto;">
@@ -64,7 +64,7 @@
 <script src="js/components.js"></script>
 <script src="js/main.js"></script>
 <script>
-  // Récupération des détails depuis les paramètres URL (passés par la fonction Netlify)
+  // Récupération des détails depuis les paramètres URL (page actuellement non utilisée)
   const p = new URLSearchParams(window.location.search);
   const set = (id, val) => { if (val) document.getElementById(id).textContent = val; };
   const hide = (id) => { const r = document.getElementById(id); if (r) r.style.display = 'none'; };

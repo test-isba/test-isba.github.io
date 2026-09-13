@@ -66,15 +66,16 @@
     .room-card-body h4 { font-size: .95rem; margin-bottom: 4px; }
     .room-card-body p  { font-size: .8rem; color: var(--text-muted); }
 
-    .stripe-placeholder {
+    .resa-info {
       background: var(--bg-3);
-      border: 1.5px dashed var(--border);
+      border: 1px solid var(--border-dim);
       border-radius: var(--radius);
-      padding: 32px;
-      text-align: center;
+      padding: 20px 24px;
       color: var(--text-muted);
+      font-size: .9rem;
+      line-height: 1.6;
     }
-    .stripe-placeholder p { font-size: .875rem; margin-top: 8px; }
+    .resa-info p + p { margin-top: 8px; }
   </style>
 </head>
 <body>
@@ -142,11 +143,11 @@
                 <label class="form-label">Nombre de joueurs *</label>
                 <select class="form-select" id="res-players" required>
                   <option value="">Sélectionnez</option>
-                  <option value="2">2 joueurs ·80 €</option>
-                  <option value="3">3 joueurs ·90 €</option>
-                  <option value="4">4 joueurs ·104 €</option>
-                  <option value="5">5 joueurs ·120 €</option>
-                  <option value="6">6 joueurs ·132 €</option>
+                  <option value="2">2 joueurs · 80 €</option>
+                  <option value="3">3 joueurs · 90 €</option>
+                  <option value="4">4 joueurs · 104 €</option>
+                  <option value="5">5 joueurs · 120 €</option>
+                  <option value="6">6 joueurs · 130 €</option>
                 </select>
               </div>
             </div>
@@ -195,19 +196,15 @@
             </div>
           </div>
 
-          <!-- Étape 4 : Paiement -->
+          <!-- Étape 4 : Envoi de la demande (pas de paiement en ligne) -->
           <div style="background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);padding:32px;" class="reveal">
-            <h3 style="margin-bottom:24px;">4. Paiement</h3>
-            <div class="stripe-placeholder">
-              <svg width="48" height="28" viewBox="0 0 48 28" fill="none" style="margin:0 auto;">
-                <rect width="48" height="28" rx="6" fill="#635BFF" opacity=".2"/>
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#635BFF" font-size="10" font-weight="700">Stripe</text>
-              </svg>
-              <p>Le paiement sécurisé par Stripe sera intégré prochainement.</p>
-              <p style="margin-top:4px;font-size:.8rem;">Pour l'instant, nous vous confirmons votre réservation par téléphone sous 24h.</p>
+            <h3 style="margin-bottom:24px;">4. Envoi de votre demande</h3>
+            <div class="resa-info">
+              <p><strong style="color:var(--text);">Le règlement se fait sur place</strong>, le jour de votre session (carte bancaire ou espèces).</p>
+              <p>En cliquant ci-dessous, votre messagerie s'ouvre avec votre demande pré-remplie : il ne reste qu'à envoyer l'email. Nous vous confirmons la réservation par email ou par téléphone sous 24h.</p>
             </div>
             <button type="submit" class="btn btn-gold btn-lg" style="width:100%;justify-content:center;margin-top:20px;">
-              Confirmer la réservation
+              Envoyer ma demande de réservation
             </button>
             <p style="text-align:center;font-size:.8rem;color:var(--text-muted);margin-top:12px;">
               En confirmant, vous acceptez nos conditions générales de vente.
