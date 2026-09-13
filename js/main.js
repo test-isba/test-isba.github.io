@@ -296,7 +296,8 @@ document.addEventListener('DOMContentLoaded', () => {
     lb.append(lbClose, lbPrev, lbImg, lbNext, lbCap);
     document.body.appendChild(lb);
 
-    const images = Array.from(lbTriggers);
+    // Liste recalculée à chaque ouverture : une image introuvable est retirée de la page (voir fallback plus bas)
+    let images = [];
     let current = 0;
 
     function openLb(idx) {
@@ -310,7 +311,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
 
-    images.forEach((img, i) => { img.classList.add('lightbox-trigger'); img.addEventListener('click', () => openLb(i)); });
+    lbTriggers.forEach(img => {
+      img.classList.add('lightbox-trigger');
+      img.addEventListener('click', () => {
+        images = Array.from(lbTriggers).filter(el => el.isConnected);
+        openLb(images.indexOf(img));
+      });
+    });
     lbClose.addEventListener('click', closeLb);
     lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
     lbPrev.addEventListener('click', () => openLb((current - 1 + images.length) % images.length));
@@ -332,11 +339,20 @@ document.addEventListener('DOMContentLoaded', () => {
     'parchemin': 'width:100%;height:300px;display:block;background:var(--bg-3);border-radius:var(--radius-lg)',
     'hide':      'display:none',
   };
+  // Remplace l'image introuvable par un bloc vide de même taille (une <img> cassée garde l'icône du navigateur)
+  const appliquerFallback = img => {
+    const style = IMG_FALLBACKS[img.dataset.fallback];
+    if (!style) return;
+    const bloc = document.createElement('div');
+    bloc.className = img.className.replace('lightbox-trigger', '').trim();
+    bloc.style.cssText = style;
+    bloc.setAttribute('aria-hidden', 'true');
+    img.replaceWith(bloc);
+  };
   document.querySelectorAll('img[data-fallback]').forEach(img => {
-    img.addEventListener('error', () => {
-      const style = IMG_FALLBACKS[img.dataset.fallback];
-      if (style) img.style.cssText = style;
-    });
+    // Une image introuvable a pu échouer avant ce script : "error" ne se redéclenchera pas
+    if (img.complete && img.naturalWidth === 0) appliquerFallback(img);
+    else img.addEventListener('error', () => appliquerFallback(img));
   });
 
   /* ---- Liens hover (remplace les onmouseover/onmouseout inline) ---- */
