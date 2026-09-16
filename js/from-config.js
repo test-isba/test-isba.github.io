@@ -67,14 +67,16 @@
       { session: s[4], label: 'Équipe', featured: false },
     ].filter(c => c.session);
 
-    homeTarifs.innerHTML = cards.map(c => `
+    // Le wrapper .grid-3 doit être régénéré : il vient du HTML de index.html et
+    // innerHTML l'écrase. Sans lui, plus de grille ni d'espacement entre les cartes.
+    homeTarifs.innerHTML = `<div class="grid-3 reveal visible">${cards.map(c => `
       <div class="price-card${c.featured ? ' featured' : ''}">
         ${c.featured ? '<div class="price-card-badge"><span class="badge badge-gold">Populaire</span></div>' : ''}
         <h3>${c.label}</h3>
         <div class="price-amount">${c.session.prix} <span>€</span></div>
         <p class="price-desc">Pour ${c.session.joueurs} joueurs</p>
         <a href="reservation.html" class="btn ${c.featured ? 'btn-gold' : 'btn-outline'}" style="width:100%; justify-content:center;">Réserver</a>
-      </div>`).join('');
+      </div>`).join('')}</div>`;
   }
 
   // ─── BADGE OUVERT MAINTENANT (index.html) ─────────────────────
