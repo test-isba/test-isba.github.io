@@ -66,6 +66,82 @@
     .room-card-body h4 { font-size: .95rem; margin-bottom: 4px; }
     .room-card-body p  { font-size: .8rem; color: var(--text-muted); }
 
+    /* Grille des créneaux (étape 2) */
+    .slots-field {
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+    .slots-field .form-label { padding: 0; }
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .slots-grid:empty { display: none; }
+    .slot {
+      position: relative;
+      display: block;
+      text-align: center;
+      padding: 12px 6px;
+      border: 1.5px solid var(--border-dim);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all var(--transition);
+      font-size: .95rem;
+    }
+    /* Le radio reste focusable au clavier : pas de display:none */
+    .slot input[type="radio"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      margin: 0;
+      pointer-events: none;
+    }
+    .slot-etat {
+      display: block;
+      margin-top: 4px;
+      font-size: .7rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .slot:hover { border-color: var(--border); }
+    .slot:has(input:checked) {
+      border-color: var(--gold);
+      background: var(--gold-bg);
+      color: var(--gold);
+    }
+    .slot:has(input:focus-visible) {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(189, 138, 30, .15);
+    }
+    /* Créneau déjà réservé ou passé : même convention que .horaires-table .ferme */
+    .slot--off,
+    .slot--off:hover {
+      color: var(--text-dim);
+      border-color: var(--border-dim);
+      border-style: dashed;
+      background: var(--bg-3);
+      cursor: not-allowed;
+    }
+    .slots-note {
+      color: var(--text-muted);
+      font-size: .9rem;
+      margin-bottom: 12px;
+    }
+    .slots-note:empty { display: none; }
+    .slots-legend {
+      color: var(--text-dim);
+      font-size: .78rem;
+      line-height: 1.5;
+      margin-top: 12px;
+    }
+    @media (max-width: 768px) {
+      .slots-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     .resa-info {
       background: var(--bg-3);
       border: 1px solid var(--border-dim);
@@ -151,20 +227,15 @@
                 </select>
               </div>
             </div>
-            <div class="form-group">
-              <label class="form-label">Créneau horaire souhaité *</label>
-              <select class="form-select" id="res-time" required>
-                <option value="">Sélectionnez un créneau</option>
-                <option>10h00</option>
-                <option>11h30</option>
-                <option>13h00</option>
-                <option>14h30</option>
-                <option>16h00</option>
-                <option>17h30</option>
-                <option>19h00</option>
-                <option>20h30</option>
-              </select>
-            </div>
+            <fieldset class="slots-field">
+              <legend class="form-label">Créneau horaire souhaité *</legend>
+              <p class="slots-note" id="res-slots-note">Choisissez d'abord une salle et une date.</p>
+              <div class="slots-grid" id="res-slots"></div>
+              <p class="slots-legend">
+                Les disponibilités sont indicatives : votre réservation n'est confirmée
+                que par la réponse de l'Isba à votre demande.
+              </p>
+            </fieldset>
           </div>
 
           <!-- Étape 3 : Coordonnées -->
@@ -257,6 +328,7 @@
 <div id="footer-placeholder"></div>
 <script src="js/components.js"></script>
 <script src="js/main.js"></script>
+<script src="js/horaires.js"></script>
 <script src="js/reservation.js"></script>
 </body>
 </html>

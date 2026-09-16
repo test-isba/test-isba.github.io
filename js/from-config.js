@@ -1,22 +1,11 @@
 'use strict';
 
 (async function () {
-  let config;
-  try {
-    const res = await fetch('data/config.json');
-    if (!res.ok) return;
-    config = await res.json();
-  } catch (e) {
-    return;
-  }
+  // parseHeure, cfgIndex et chargerConfig viennent de js/horaires.js (partagé avec reservation.js)
+  const { parseHeure, cfgIndex, chargerConfig } = window.IsbaHoraires;
 
-  // ─── UTILITAIRES HORAIRES ──────────────────────────────────────
-  // Parse "09h30" → 9.5, "Fermé" → null
-  function parseHeure(str) {
-    const m = str.trim().match(/^(\d+)h(\d+)/);
-    if (!m) return null;
-    return parseInt(m[1]) + parseInt(m[2]) / 60;
-  }
+  const config = await chargerConfig();
+  if (!config) return;
 
   function renderRows(rows, tableId) {
     const table = document.getElementById(tableId);
@@ -91,9 +80,6 @@
   // ─── BADGE OUVERT MAINTENANT (index.html) ─────────────────────
   const badge = document.getElementById('next-slot-badge');
   if (badge && config.horaires) {
-    // config.horaires.interieures est ordonné [Lundi, Mardi, ..., Dimanche]
-    // getDay() : 0=Dim, 1=Lun, ..., 6=Sam → config index : 0→6, 1→0, ..., 6→5
-    const cfgIndex = d => d === 0 ? 6 : d - 1;
     const rows = config.horaires.interieures;
     const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
     const now   = new Date();
