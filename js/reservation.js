@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (opt.value && prices[opt.value] != null) opt.textContent = opt.value + ' joueurs · ' + prices[opt.value] + ' €';
   });
 
-  // Sélection de salle par clic sur la card
+  // Sélection de salle par clic sur la card (la dispo est déjà chargée pour la date)
   document.querySelectorAll('.room-card').forEach(card => {
     card.addEventListener('click', () => {
       document.querySelectorAll('.room-card').forEach(c => c.classList.remove('selected'));
@@ -43,8 +43,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // ─── CRÉNEAUX ────────────────────────────────────────────────────
-  // La disponibilité dépend de la salle ET de la date : la grille est reconstruite
-  // à chaque changement de l'un ou de l'autre.
+  // La disponibilité dépend de la salle ET de la date. Les créneaux déjà pris
+  // viennent de l'API (temps réel), plus de config.json.
+
+  // Créneaux occupés pour la date actuellement affichée : { salle: ["10h00", ...] }
+  let dispoDuJour = {};
+  let dateChargee = null;
+  let apiHorsLigne = false;
+
+  async function chargerDispo(iso) {
+    if (iso === dateChargee) return;            // déjà chargé pour cette date
+    const r = await IsbaApi.disponibilites(iso, iso);
+    apiHorsLigne = !!r.horsLigne;
+    dispoDuJour  = r.occupes[iso] || {};
+    dateChargee  = iso;
+  }
 
   function creneauChoisi() {
     return document.querySelector('input[name="res-time"]:checked')?.value || '';
@@ -100,7 +113,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const creneaux = config?.planning?.creneaux || CRENEAUX_DEFAUT;
-    const pris     = config?.planning?.occupes?.[iso]?.[salle] || [];
+    // Créneaux pris : depuis l'API. Si elle est injoignable, dispoDuJour est vide et
+    // tout est proposé (mieux vaut une demande à trier qu'un visiteur bloqué).
+    const pris     = dispoDuJour[salle] || [];
 
     const maintenant    = new Date();
     const estAujourdhui = iso === IsbaHoraires.isoDepuisDate(maintenant);
@@ -152,7 +167,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('recap-time').textContent = creneauChoisi() || '—';
   }
 
-  document.getElementById('res-date')?.addEventListener('change', () => {
+  document.getElementById('res-date')?.addEventListener('change', async () => {
+    const iso = document.getElementById('res-date')?.value || '';
+    if (iso) await chargerDispo(iso);   // récupère les créneaux pris pour cette date
     renderCreneaux();
     updateRecap();
   });
@@ -171,10 +188,49 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (radio) radio.closest('.room-card')?.click();
   }
 
-  // Soumission : demande de réservation envoyée par la messagerie du visiteur (voir ouvrirEmail dans main.js)
+  // Repli : ouvre la messagerie du visiteur avec la demande pré-remplie.
+  // Utilisé seulement si l'API est injoignable, pour ne jamais perdre une demande.
+  function ouvrirEmailReservation(v) {
+    ouvrirEmail('Réservation — ' + v.salleLabel + ' — ' + v.dateFr + ' à ' + v.time, [
+      'Bonjour,', '',
+      'Je souhaite réserver une session :', '',
+      'Salle : ' + v.salleLabel,
+      'Date : ' + v.dateFr,
+      'Créneau : ' + v.time,
+      'Joueurs : ' + v.players,
+      'Tarif : ' + (prices[v.players] ?? '—') + ' € (règlement sur place)', '',
+      v.note ? 'Informations complémentaires : ' + v.note : null,
+      v.note ? '' : null,
+      '---',
+      v.prenom + ' ' + v.nom,
+      'Email : ' + v.email,
+      'Téléphone : ' + v.tel,
+    ]);
+    signalerEmailOuvert(form);
+  }
+
+  function messageResa(texte, erreur) {
+    let el = form.querySelector('.resa-message');
+    if (!el) {
+      el = document.createElement('p');
+      el.className = 'resa-message';
+      el.setAttribute('role', 'status');
+      form.querySelector('[type="submit"]').insertAdjacentElement('afterend', el);
+    }
+    el.style.cssText = 'margin-top:14px;padding:12px 16px;border-radius:var(--radius);font-size:.9rem;line-height:1.5;'
+      + (erreur
+          ? 'background:rgba(200,60,60,.12);border:1px solid rgba(200,60,60,.4);color:#e0a0a0;'
+          : 'background:var(--gold-bg);border:1px solid var(--border);color:var(--text);');
+    el.innerHTML = texte;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Soumission : envoi réel à l'API. Le créneau se bloque côté serveur.
   const form = document.getElementById('reservation-form');
   if (form) {
-    form.addEventListener('submit', e => {
+    const bouton = form.querySelector('[type="submit"]');
+
+    form.addEventListener('submit', async e => {
       e.preventDefault();
 
       const room = document.querySelector('input[name="res-room"]:checked');
@@ -183,9 +239,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelector('.room-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
-
-      // Le créneau est une grille de radios : la validation native du navigateur ne
-      // la couvre pas, on vérifie comme pour la salle
       const time = creneauChoisi();
       if (!time) {
         alert('Choisissez un créneau horaire (étape 2).');
@@ -193,31 +246,60 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
       }
 
-      const valeur  = id => document.getElementById(id)?.value.trim() || '';
-      const salle   = roomLabels[room.value] || room.value;
-      const players = valeur('res-players');
-      const date    = dateFr(valeur('res-date'));
-      const note    = valeur('res-note');
+      const valeur = id => document.getElementById(id)?.value.trim() || '';
+      const iso    = valeur('res-date');
+      const infos  = {
+        salleLabel: roomLabels[room.value] || room.value,
+        dateFr: dateFr(iso), time,
+        players: valeur('res-players'),
+        prenom: valeur('res-prenom'), nom: valeur('res-nom'),
+        email: valeur('res-email'), tel: valeur('res-tel'), note: valeur('res-note'),
+      };
 
-      ouvrirEmail('Réservation — ' + salle + ' — ' + date + ' à ' + time, [
-        'Bonjour,',
-        '',
-        'Je souhaite réserver une session :',
-        '',
-        'Salle : ' + salle,
-        'Date : ' + date,
-        'Créneau : ' + time,
-        'Joueurs : ' + players,
-        'Tarif : ' + (prices[players] ?? '—') + ' € (règlement sur place)',
-        '',
-        note ? 'Informations complémentaires : ' + note : null,
-        note ? '' : null,
-        '---',
-        valeur('res-prenom') + ' ' + valeur('res-nom'),
-        'Email : ' + valeur('res-email'),
-        'Téléphone : ' + valeur('res-tel'),
-      ]);
-      signalerEmailOuvert(form);
+      const payload = {
+        salle_id: room.value, date_session: iso, creneau: time,
+        joueurs: parseInt(infos.players, 10),
+        prenom: infos.prenom, nom: infos.nom, email: infos.email,
+        telephone: infos.tel, note: infos.note,
+      };
+
+      const texteInitial = bouton.textContent;
+      bouton.disabled = true;
+      bouton.textContent = 'Envoi…';
+
+      const r = await IsbaApi.reserver(payload);
+
+      bouton.disabled = false;
+      bouton.textContent = texteInitial;
+
+      if (r.horsLigne) {
+        // API injoignable : on bascule sur l'email pour ne pas perdre la demande
+        ouvrirEmailReservation(infos);
+        return;
+      }
+      if (r.conflit) {
+        // Quelqu'un a pris ce créneau entre-temps : on rafraîchit la grille
+        dateChargee = null;
+        await chargerDispo(iso);
+        renderCreneaux();
+        messageResa('Ce créneau vient d\'être réservé par quelqu\'un d\'autre. '
+          + 'Choisissez un autre horaire, la grille est à jour.', true);
+        return;
+      }
+      if (r.erreur) {
+        messageResa((r.message || 'Votre demande n\'a pas pu être enregistrée.')
+          + '<br>Vous pouvez nous contacter directement au 07 86 28 47 69.', true);
+        return;
+      }
+
+      // Succès : le créneau est réservé côté serveur
+      dateChargee = null;
+      await chargerDispo(iso);
+      renderCreneaux();
+      bouton.disabled = true;
+      messageResa('<strong>Demande enregistrée.</strong> Le créneau vous est réservé. '
+        + 'Vous allez recevoir un email récapitulatif, et l\'Isba confirme votre venue '
+        + 'sous 24h. Le règlement se fait sur place.');
     });
   }
 

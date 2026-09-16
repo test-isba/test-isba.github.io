@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; connect-src 'self' http://127.0.0.1:3838 https://api.lesportesdelisba.fr; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Réservez votre session d'escape game aux Portes de l'Isba à Troyes. Demande de réservation en ligne simple et rapide, règlement sur place.">
   <title>Réserver · Les Portes de l'Isba</title>
@@ -232,8 +232,8 @@
               <p class="slots-note" id="res-slots-note">Choisissez d'abord une salle et une date.</p>
               <div class="slots-grid" id="res-slots"></div>
               <p class="slots-legend">
-                Les disponibilités sont indicatives : votre réservation n'est confirmée
-                que par la réponse de l'Isba à votre demande.
+                Le créneau que vous choisissez se bloque dès l'envoi de votre demande.
+                L'Isba confirme ensuite votre venue par email ou téléphone.
               </p>
             </fieldset>
           </div>
@@ -272,7 +272,7 @@
             <h3 style="margin-bottom:24px;">4. Envoi de votre demande</h3>
             <div class="resa-info">
               <p><strong style="color:var(--text);">Le règlement se fait sur place</strong>, le jour de votre session (carte bancaire ou espèces).</p>
-              <p>En cliquant ci-dessous, votre messagerie s'ouvre avec votre demande pré-remplie : il ne reste qu'à envoyer l'email. Nous vous confirmons la réservation par email ou par téléphone sous 24h.</p>
+              <p>En envoyant votre demande, le créneau vous est réservé immédiatement et vous recevez un email récapitulatif. L'Isba confirme votre venue par email ou par téléphone sous 24h.</p>
             </div>
             <button type="submit" class="btn btn-gold btn-lg" style="width:100%;justify-content:center;margin-top:20px;">
               Envoyer ma demande de réservation
@@ -329,6 +329,7 @@
 <script src="js/components.js"></script>
 <script src="js/main.js"></script>
 <script src="js/horaires.js"></script>
+<script src="js/api.js"></script>
 <script src="js/reservation.js"></script>
 </body>
 </html>
