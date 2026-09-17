@@ -6,9 +6,12 @@
 
   // En local (site servi sur localhost), on tape l'API locale ; en ligne, le domaine dedie.
   const EN_LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname);
+  // Adresse provisoire, le temps que le sous-domaine api.lesportesdelisba.fr soit
+  // cree chez le registrar du client. Le jour ou il existe, il n'y a que cette ligne
+  // a changer : la CSP autorise deja les deux, et l'API accepte les deux origines.
   const BASE = EN_LOCAL
     ? 'http://127.0.0.1:3838'
-    : 'https://api.lesportesdelisba.fr';   // a mettre en place a l'etape 6
+    : 'https://isba-api.onrender.com';
 
   const TIMEOUT_MS = 7000;
 
