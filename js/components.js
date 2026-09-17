@@ -154,7 +154,7 @@ const FOOTER_HTML = `
 
     <div class="footer-bottom">
       <span>© ${new Date().getFullYear()} Les Portes de l'Isba. Tous droits réservés.</span>
-      <span>Site conçu par <a href="mailto:contact@mojf.fr" style="color:var(--gold);transition:opacity .2s;" data-hover-opacity=".7">MOJF</a></span>
+      <span>Site conçu par <a href="https://mojf.fr" target="_blank" rel="noopener noreferrer" style="color:var(--gold);transition:opacity .2s;" data-hover-opacity=".7">MOJF</a></span>
     </div>
   </div>
 </footer>
