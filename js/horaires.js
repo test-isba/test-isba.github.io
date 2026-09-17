@@ -52,6 +52,42 @@
     };
   }
 
+  // Semaine complete d'ouverture, indexee sur getDay() de JavaScript (0 = dimanche).
+  // Sert au badge « prochain creneau » de l'accueil et aux donnees Schema.org : sans
+  // elle, chacun réécrivait les horaires en dur et divergeait des que le client les
+  // modifiait dans Isba Admin.
+  // Retourne [{ jourJs, ouvre, ferme, texte }] pour les seuls jours ouverts, ou null
+  // si la config est absente.
+  function semaineOuverte(config, categorie) {
+    const rows = config && config.horaires && config.horaires[categorie || 'interieures'];
+    if (!rows) return null;
+
+    const sortie = [];
+    for (let idx = 0; idx < rows.length; idx++) {
+      // index config (0 = lundi) -> getDay() (0 = dimanche)
+      const jourJs = (idx + 1) % 7;
+      // On fabrique une date reelle tombant ce jour-la pour reutiliser plageDuJour
+      const repere = new Date(2026, 0, 4 + jourJs);   // 4 janvier 2026 = un dimanche
+      const plage = plageDuJour(config, repere, categorie);
+      if (plage) sortie.push({ jourJs: jourJs, ouvre: plage.ouvre, ferme: plage.ferme, texte: plage.texte });
+    }
+    return sortie;
+  }
+
+  // 9.5 -> "09h30", pour l'affichage
+  function heureEnTexte(h) {
+    if (h === null || h === undefined) return '';
+    const heures = Math.floor(h);
+    const minutes = Math.round((h - heures) * 60);
+    const deux = n => String(n).padStart(2, '0');
+    return deux(heures) + 'h' + deux(minutes);
+  }
+
+  // 9.5 -> "09:30", format attendu par Schema.org
+  function heureEnIso(h) {
+    return heureEnTexte(h).replace('h', ':');
+  }
+
   // Chargement de la config du site. Retourne null si le fichier est injoignable :
   // les pages doivent rester utilisables sans lui.
   // Le cache est court-circuite (parametre ?v= et no-store) : sinon un visiteur peut
@@ -62,6 +98,7 @@
       .catch(() => null);
   }
 
-  global.IsbaHoraires = { parseHeure, cfgIndex, dateDepuisIso, isoDepuisDate, plageDuJour, chargerConfig };
+  global.IsbaHoraires = { parseHeure, cfgIndex, dateDepuisIso, isoDepuisDate, plageDuJour,
+                          semaineOuverte, heureEnTexte, heureEnIso, chargerConfig };
 
 })(window);

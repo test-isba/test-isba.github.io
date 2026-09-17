@@ -181,8 +181,10 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Date souhaitée</label>
-          <input type="date" name="date" class="form-input">
+          <label class="form-label" for="devis-date">Date souhaitée</label>
+          <input type="date" name="date" id="devis-date" class="form-input"
+                 aria-describedby="devis-date-note">
+          <p class="form-note" id="devis-date-note" role="status" aria-live="polite"></p>
         </div>
         <div class="form-group">
           <label class="form-label">Vos besoins</label>
@@ -202,6 +204,7 @@
 </section>
 
 <div id="footer-placeholder"></div>
+<script src="js/horaires.js"></script>
 <script src="js/components.js"></script>
 <script src="js/main.js"></script>
 <script src="js/devis-form.js"></script>

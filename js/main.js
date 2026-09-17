@@ -249,37 +249,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ---- Badge prochain créneau (index uniquement) ---- */
+  /* ---- Badge prochain créneau (index uniquement) ----
+     Les horaires viennent de config.json, edite dans Isba Admin. Ils etaient ecrits en
+     dur ici : le badge annoncait donc les anciens horaires des que le client les
+     changeait. Le repli ci-dessous ne sert que si config.json est injoignable. */
   const heroBtns = document.querySelector('.hero-btns');
   if (heroBtns) {
-    const schedule = [
-      { day: 0, opens: 9.5,  closes: 23 },
-      { day: 1, opens: 9.5,  closes: 23 },
-      { day: 4, opens: 9.5,  closes: 23 },
-      { day: 5, opens: 9.5,  closes: 23 },
-      { day: 6, opens: 9.5,  closes: 23 },
+    const REPLI = [
+      { jourJs: 1, ouvre: 9.5, ferme: 23 },   // lundi
+      { jourJs: 4, ouvre: 9.5, ferme: 23 },   // jeudi
+      { jourJs: 5, ouvre: 9.5, ferme: 23 },   // vendredi
+      { jourJs: 6, ouvre: 9.5, ferme: 23 },   // samedi
+      { jourJs: 0, ouvre: 9.5, ferme: 23 },   // dimanche
     ];
-    const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-    const now = new Date();
-    const today = now.getDay();
-    const nowH = now.getHours() + now.getMinutes() / 60;
+    const nomsJours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
-    let label = '';
-    for (let i = 0; i < 7; i++) {
-      const d = (today + i) % 7;
-      const slot = schedule.find(s => s.day === d);
-      if (!slot) continue;
-      if (i === 0 && nowH >= slot.opens && nowH < slot.closes) { label = 'Ouvert maintenant'; break; }
-      if (i === 0 && nowH < slot.opens) { label = 'Aujourd\'hui à 09h30'; break; }
-      if (i === 1) { label = 'Demain à 09h30'; break; }
-      label = dayNames[d] + ' à 09h30'; break;
+    function texteBadge(semaine) {
+      const maintenant = new Date();
+      const aujourdhui = maintenant.getDay();
+      const heureH = maintenant.getHours() + maintenant.getMinutes() / 60;
+
+      for (let i = 0; i < 7; i++) {
+        const d = (aujourdhui + i) % 7;
+        const jour = semaine.find(s => s.jourJs === d);
+        if (!jour) continue;
+        const ouverture = window.IsbaHoraires ? IsbaHoraires.heureEnTexte(jour.ouvre) : '09h30';
+        if (i === 0 && jour.ferme !== null && heureH >= jour.ouvre && heureH < jour.ferme) return 'Ouvert maintenant';
+        if (i === 0 && heureH < jour.ouvre) return 'Aujourd\'hui à ' + ouverture;
+        if (i === 1) return 'Demain à ' + ouverture;
+        return nomsJours[d] + ' à ' + ouverture;
+      }
+      return '';
     }
 
-    if (label) {
-      const badge = document.createElement('div');
-      badge.id = 'next-slot-badge';
-      badge.innerHTML = '<span class="next-slot-dot"></span>' + label;
-      heroBtns.after(badge);
+    function afficherBadge(semaine) {
+      const texte = texteBadge(semaine);
+      let badge = document.getElementById('next-slot-badge');
+      if (!texte) { if (badge) badge.remove(); return; }
+      if (!badge) {
+        badge = document.createElement('div');
+        badge.id = 'next-slot-badge';
+        heroBtns.after(badge);
+      }
+      badge.innerHTML = '<span class="next-slot-dot"></span>' + texte;
+    }
+
+    // Affichage immediat avec le repli, puis correction des que la config arrive :
+    // le visiteur ne voit jamais de vide en attendant le fichier.
+    afficherBadge(REPLI);
+    if (window.IsbaHoraires) {
+      IsbaHoraires.chargerConfig().then(config => {
+        const semaine = config && IsbaHoraires.semaineOuverte(config);
+        if (semaine) afficherBadge(semaine);
+      });
     }
   }
 

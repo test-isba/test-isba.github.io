@@ -243,9 +243,11 @@ document.addEventListener('DOMContentLoaded', () => {
       'addressCountry': 'FR'
     },
     'geo': { '@type': 'GeoCoordinates', 'latitude': 48.2967, 'longitude': 4.0942 },
+    // Repli, remplace juste apres par les horaires reels de config.json.
+    // Ecrits en dur, ils continuaient d'annoncer a Google les anciens horaires
+    // des que le client les modifiait dans Isba Admin.
     'openingHoursSpecification': [
-      { '@type': 'OpeningHoursSpecification', 'dayOfWeek': ['Monday','Thursday','Friday','Saturday','Sunday'], 'opens': '09:30', 'closes': '23:00' },
-      { '@type': 'OpeningHoursSpecification', 'dayOfWeek': ['Tuesday','Wednesday'], 'opens': '00:00', 'closes': '00:00' }
+      { '@type': 'OpeningHoursSpecification', 'dayOfWeek': ['Monday','Thursday','Friday','Saturday','Sunday'], 'opens': '09:30', 'closes': '23:00' }
     ],
     'sameAs': [
       'https://www.facebook.com/escapegameLIsba',
@@ -256,5 +258,24 @@ document.addEventListener('DOMContentLoaded', () => {
   schemaEl.type = 'application/ld+json';
   schemaEl.textContent = JSON.stringify(schema);
   document.head.appendChild(schemaEl);
+
+  // Horaires reels depuis config.json. On reecrit le bloc une fois le fichier lu :
+  // une seule source de verite, celle qu'edite Isba Admin.
+  if (window.IsbaHoraires) {
+    var NOMS_SCHEMA = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    IsbaHoraires.chargerConfig().then(function (config) {
+      var semaine = config && IsbaHoraires.semaineOuverte(config);
+      if (!semaine || !semaine.length) return;
+      schema.openingHoursSpecification = semaine.map(function (j) {
+        return {
+          '@type': 'OpeningHoursSpecification',
+          'dayOfWeek': NOMS_SCHEMA[j.jourJs],
+          'opens': IsbaHoraires.heureEnIso(j.ouvre),
+          'closes': IsbaHoraires.heureEnIso(j.ferme),
+        };
+      });
+      schemaEl.textContent = JSON.stringify(schema);
+    });
+  }
 
 });
