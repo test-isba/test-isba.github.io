@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Contactez Les Portes de l'Isba, escape game à Troyes. Téléphone, email, adresse et formulaire de contact.">
   <title>Nous Contacter · Les Portes de l'Isba</title>
@@ -90,18 +90,19 @@
 
       <!-- Formulaire -->
       <div class="reveal reveal-delay-1">
-        <!-- Google Maps -->
-        <div style="border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border-dim);margin-bottom:20px;">
-          <iframe
-            src="https://maps.google.com/maps?q=1+Route+de+Cupigny%2C+10150+Creney-pr%C3%A8s-Troyes%2C+France&output=embed&hl=fr&z=15"
-            width="100%"
-            height="220"
-            style="border:0;display:block;filter:brightness(0.9) saturate(0.85);"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Localisation Les Portes de l'Isba">
-          </iframe>
+        <!-- Google Maps : chargee seulement si le visiteur la demande.
+             Tant qu'il n'a pas clique, aucune requete n'est envoyee a Google. -->
+        <div class="carte-bloc" id="carte">
+          <div class="carte-invite">
+            <p class="carte-adresse">1 route de Cupigny<br>10150 Creney-pres-Troyes</p>
+            <p class="carte-note">La carte est fournie par Google Maps. L'afficher enverra
+              votre adresse IP a Google.</p>
+            <button type="button" class="btn btn-outline btn-sm" id="carte-afficher">
+              Afficher la carte
+            </button>
+            <a class="carte-lien" href="https://maps.google.com/maps?q=1+Route+de+Cupigny%2C+10150+Creney-pr%C3%A8s-Troyes%2C+France"
+               target="_blank" rel="noopener noreferrer">Ouvrir dans Google Maps</a>
+          </div>
         </div>
 
         <div style="background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);padding:36px;">

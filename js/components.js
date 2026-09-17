@@ -128,6 +128,7 @@ const FOOTER_HTML = `
           <a href="histoire-isba.html"           class="footer-link">Histoire de l'Isba</a>
           <a href="nous-contacter.html"          class="footer-link">Nous contacter</a>
           <a href="nos-horaires.html"            class="footer-link">Nos horaires</a>
+          <a href="mentions-legales.html"        class="footer-link">Mentions légales</a>
           <a href="cgv.html"                     class="footer-link">CGV</a>
           <a href="politique-confidentialite.html" class="footer-link">Politique de confidentialité</a>
         </div>
@@ -153,7 +154,7 @@ const FOOTER_HTML = `
 
     <div class="footer-bottom">
       <span>© ${new Date().getFullYear()} Les Portes de l'Isba. Tous droits réservés.</span>
-      <span>Site conçu par <a href="https://jibril-filali.github.io" target="_blank" rel="noopener noreferrer" style="color:var(--gold);transition:opacity .2s;" data-hover-opacity=".7">Jibzz</a></span>
+      <span>Site conçu par <a href="mailto:contact@mojf.fr" style="color:var(--gold);transition:opacity .2s;" data-hover-opacity=".7">MOJF</a></span>
     </div>
   </div>
 </footer>
@@ -221,26 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
     pt.classList.add('active');
     setTimeout(() => { window.location.href = href; }, 330);
   });
-
-  // ---- Bandeau cookies RGPD ----
-  if (!localStorage.getItem('cookie_consent')) {
-    const cb = document.createElement('div');
-    cb.id = 'cookie-banner';
-    cb.innerHTML =
-      '<p class="cookie-text">Nous utilisons des cookies pour améliorer votre expérience de navigation.' +
-      ' En continuant, vous acceptez notre <a href="politique-confidentialite.html">politique de confidentialité</a>.</p>' +
-      '<div class="cookie-btns">' +
-        '<button class="cookie-btn cookie-btn-refuse">Refuser</button>' +
-        '<button class="cookie-btn cookie-btn-accept">Accepter</button>' +
-      '</div>';
-    document.body.appendChild(cb);
-    function dismissCookie(value) {
-      localStorage.setItem('cookie_consent', value);
-      cb.classList.add('dismissed');
-    }
-    cb.querySelector('.cookie-btn-accept').addEventListener('click', () => dismissCookie('accepted'));
-    cb.querySelector('.cookie-btn-refuse').addEventListener('click', () => dismissCookie('refused'));
-  }
 
   // ---- Schema.org JSON-LD (LocalBusiness) ----
   var schema = {

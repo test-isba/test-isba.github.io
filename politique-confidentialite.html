@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; frame-src https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Politique de confidentialité de l'escape game Les Portes de l'Isba à Troyes.">
+  <meta name="description" content="Politique de confidentialité de l'escape game Les Portes de l'Isba à Troyes : données collectées, durées de conservation et vos droits.">
   <title>Politique de confidentialité · Les Portes de l'Isba</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -28,6 +28,20 @@
       border-bottom: 1px solid var(--border-dim);
     }
     .legal-section p { color: var(--text-muted); margin-bottom: 12px; line-height: 1.75; font-size: .9rem; }
+    .legal-section ul { color: var(--text-muted); margin: 0 0 12px 20px; line-height: 1.75; font-size: .9rem; }
+    .legal-section li { margin-bottom: 6px; }
+    .legal-section a { color: var(--gold); }
+    .legal-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: .85rem; min-width: 460px; }
+    .legal-table th, .legal-table td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-dim);
+      color: var(--text-muted);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .legal-table th { color: var(--text); font-family: var(--font-heading); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; }
+    .legal-scroll { overflow-x: auto; }
   </style>
 </head>
 <body>
@@ -36,60 +50,146 @@
 <div class="nav-spacer"></div>
 
 <div class="page-hero">
-  <p class="page-hero-eyebrow">Mentions légales</p>
+  <p class="page-hero-eyebrow">Informations légales</p>
   <h1>Politique de confidentialité</h1>
-  <p>Comment nous collectons, utilisons et protégeons vos données personnelles.</p>
+  <p>Quelles données nous recueillons, pourquoi, combien de temps, et ce que vous pouvez exiger de nous.</p>
 </div>
 
 <section>
   <div class="container container--narrow">
 
+    <p style="color:var(--text-dim);font-size:.82rem;margin-bottom:36px;">
+      Dernière mise à jour : 17 septembre 2026.
+    </p>
+
     <div class="legal-section">
-      <h2>Article 1. Renseignements personnels recueillis</h2>
-      <p>Lorsque vous effectuez un achat ou une réservation sur notre site, nous recueillons les renseignements personnels que vous nous fournissez : votre nom, votre adresse et votre adresse e-mail.</p>
-      <p>Lorsque vous naviguez sur notre site, nous recevons automatiquement l'adresse IP de votre ordinateur, qui nous permet d'obtenir des informations sur le navigateur et le système d'exploitation utilisés.</p>
-      <p>Avec votre permission, nous pourrions vous envoyer des e-mails au sujet de nouveaux produits et offres commerciales.</p>
+      <h2>1. Qui est responsable de vos données</h2>
+      <p>Les Portes de l'Isba, dont le siège est situé 1 route de Cupigny, 10150 Creney-près-Troyes, est responsable des traitements décrits sur cette page. Les coordonnées complètes de l'entreprise figurent dans les <a href="mentions-legales.html">mentions légales</a>.</p>
+      <p>Pour toute question sur vos données, écrivez à <a href="mailto:escape-game@lesportesdelisba.fr">escape-game@lesportesdelisba.fr</a> ou adressez un courrier au siège.</p>
     </div>
 
     <div class="legal-section">
-      <h2>Article 2. Consentement</h2>
-      <p>Lorsque vous nous fournissez vos renseignements personnels pour conclure une transaction ou passer une commande, nous présumons que vous consentez à ce que nous recueillions vos renseignements et à ce que nous les utilisions à cette fin uniquement.</p>
-      <p>Si vous souhaitez retirer votre consentement, contactez-nous à <a href="mailto:escape-game@lesportesdelisba.fr" style="color:var(--gold);">escape-game@lesportesdelisba.fr</a> ou par courrier à : Les Portes de l'Isba, 1 route de Cupigny, 10150 Creney-près-Troyes, France.</p>
+      <h2>2. Aucun paiement en ligne</h2>
+      <p>Ce site n'encaisse aucun paiement. Nous ne vous demandons jamais de numéro de carte bancaire, ni sur le site, ni par email, ni par téléphone. Le règlement de votre session se fait sur place, le jour de votre venue. Nous ne détenons donc aucune donnée bancaire vous concernant.</p>
+      <p>Si un message se présentant comme venant de nous vous réclame un paiement en ligne ou vos coordonnées bancaires, il ne vient pas de nous. Signalez-le nous.</p>
     </div>
 
     <div class="legal-section">
-      <h2>Article 3. Divulgation</h2>
-      <p>Nous pouvons divulguer vos renseignements personnels si la loi nous y oblige ou si vous violez nos Conditions Générales de Vente.</p>
+      <h2>3. Ce que nous recueillons et pourquoi</h2>
+      <p>Nous ne collectons que ce dont nous avons besoin pour vous accueillir. Aucune donnée n'est vendue, louée ou cédée à qui que ce soit.</p>
+
+      <div class="legal-scroll">
+        <table class="legal-table">
+          <thead>
+            <tr><th>Situation</th><th>Données</th><th>Pourquoi</th><th>Base légale</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Vous réservez une session sur le site</td>
+              <td>Prénom, nom, adresse email, numéro de téléphone, salle, date et horaire choisis, nombre de joueurs, et le message que vous ajoutez si vous en écrivez un</td>
+              <td>Bloquer votre créneau, vous confirmer votre venue, vous joindre en cas d'imprévu</td>
+              <td>Exécution du contrat et des mesures précontractuelles que vous demandez</td>
+            </tr>
+            <tr>
+              <td>Vous nous écrivez par le formulaire de contact ou de devis</td>
+              <td>Les informations que vous saisissez : prénom, nom, email, téléphone, et pour un devis le nom de l'entreprise et l'effectif</td>
+              <td>Vous répondre</td>
+              <td>Notre intérêt légitime à répondre aux personnes qui nous sollicitent</td>
+            </tr>
+            <tr>
+              <td>Vous consultez simplement le site</td>
+              <td>Adresse IP, date et heure, pages consultées, navigateur, enregistrés dans les journaux techniques de nos hébergeurs</td>
+              <td>Faire fonctionner le site, le sécuriser, limiter les envois automatisés abusifs sur le formulaire de réservation</td>
+              <td>Notre intérêt légitime à protéger le service</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Les formulaires de contact et de devis n'envoient rien à un serveur : ils ouvrent votre logiciel de messagerie avec un message pré-rempli, que vous restez libre de modifier ou de ne pas envoyer. Vos réponses ne nous parviennent que si vous cliquez sur « envoyer » dans votre messagerie.</p>
+      <p>Le champ de message libre du formulaire de réservation sert aux précisions pratiques, par exemple un anniversaire ou un retard annoncé. Merci de n'y écrire aucune information sensible, notamment de santé.</p>
     </div>
 
     <div class="legal-section">
-      <h2>Article 4. Services fournis par des tiers</h2>
-      <p>Les fournisseurs tiers que nous utilisons (notamment l'hébergeur du site et Google Maps pour la carte d'accès) vont uniquement recueillir, utiliser et divulguer vos renseignements dans la mesure nécessaire pour réaliser les services qu'ils nous fournissent. Nous vous recommandons de lire leurs politiques de confidentialité.</p>
-      <p>Une fois que vous quittez notre site ou que vous êtes redirigé vers un site tiers, vous n'êtes plus régi par la présente Politique de Confidentialité.</p>
+      <h2>4. Combien de temps nous les gardons</h2>
+      <div class="legal-scroll">
+        <table class="legal-table">
+          <thead>
+            <tr><th>Données</th><th>Durée</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Demande de réservation restée sans suite ou annulée</td><td>3 mois, puis suppression</td></tr>
+            <tr><td>Réservation honorée</td><td>3 ans après votre venue, pour la gestion de la relation client</td></tr>
+            <tr><td>Emails de contact et de devis</td><td>1 an après le dernier échange, 3 ans si l'échange débouche sur une prestation</td></tr>
+            <tr><td>Pièces comptables, lorsqu'une facture est établie</td><td>10 ans, comme la loi l'impose</td></tr>
+            <tr><td>Journaux techniques des hébergeurs</td><td>12 mois au maximum</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Vous pouvez demander la suppression de vos données avant ces échéances, dans les conditions décrites à l'article 8.</p>
     </div>
 
     <div class="legal-section">
-      <h2>Article 5. Sécurité</h2>
-      <p>Pour protéger vos données personnelles, nous prenons des précautions raisonnables et suivons les meilleures pratiques de l'industrie. Si vous nous fournissez vos informations de carte de crédit, elles seront chiffrées via le protocole SSL et conservées avec un chiffrement AES-256. Nous respectons les exigences de la norme PCI-DSS.</p>
+      <h2>5. Qui d'autre y a accès</h2>
+      <p>Vos données sont consultées par l'équipe des Portes de l'Isba, et seulement pour vous accueillir. En dehors de l'équipe, elles ne sont confiées qu'aux prestataires techniques indispensables au fonctionnement du site, qui agissent sur nos instructions et ne peuvent pas les utiliser pour leur propre compte :</p>
+      <ul>
+        <li><strong>GitHub, Inc.</strong>, qui héberge les pages du site.</li>
+        <li><strong>Brevo</strong>, société française établie à Paris, qui expédie les emails de confirmation de réservation.</li>
+        <li>L'hébergeur de notre service de réservation, chez qui sont enregistrées les réservations. Son identité est précisée dans les <a href="mentions-legales.html">mentions légales</a>.</li>
+      </ul>
+      <p>Nous pouvons également être tenus de communiquer des informations à une autorité administrative ou judiciaire qui nous les réclame dans le cadre prévu par la loi.</p>
+      <p>Les données de réservation sont hébergées dans l'Union européenne. L'hébergement des pages du site est assuré par une société américaine : les journaux techniques qu'elle conserve peuvent être traités aux États-Unis, dans le cadre du Data Privacy Framework conclu entre l'Union européenne et les États-Unis, auquel elle adhère.</p>
     </div>
 
     <div class="legal-section">
-      <h2>Article 6. Cookies</h2>
-      <p>Notre site peut utiliser des cookies pour améliorer votre expérience de navigation. Vous pouvez configurer votre navigateur pour refuser les cookies, mais certaines fonctionnalités du site pourraient ne plus être disponibles.</p>
+      <h2>6. Cookies et traceurs</h2>
+      <p>Ce site ne dépose aucun cookie et n'utilise aucun traceur, aucun outil de mesure d'audience et aucun pixel publicitaire. C'est pourquoi aucune bannière ne vous demande votre accord : il n'y a rien à accepter.</p>
+      <p>Une seule exception, et elle dépend de vous. Sur la page <a href="nous-contacter.html">Nous contacter</a>, la carte Google Maps ne se charge pas toute seule. Tant que vous ne cliquez pas sur « Afficher la carte », votre navigateur ne contacte pas Google. Si vous cliquez, Google reçoit votre adresse IP et peut déposer ses propres cookies, selon <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">sa politique de confidentialité</a>. Vous pouvez aussi vous contenter de l'adresse affichée, qui reste lisible sans charger la carte.</p>
+      <p>Les liens vers Facebook, Instagram, TripAdvisor ou WhatsApp sont de simples liens : rien n'est chargé depuis ces sites tant que vous ne les suivez pas.</p>
     </div>
 
     <div class="legal-section">
-      <h2>Article 7. Âge de consentement</h2>
-      <p>En utilisant ce site, vous déclarez avoir au moins l'âge de la majorité dans votre pays de résidence et avoir donné votre consentement pour permettre à toute personne d'âge mineur à votre charge d'utiliser ce site web.</p>
+      <h2>7. Comment nous les protégeons</h2>
+      <p>Le site est servi en HTTPS, donc chiffré entre votre navigateur et nous. Les réservations sont enregistrées dans une base de données qui n'est pas accessible publiquement, et l'accès à l'outil de gestion interne est protégé par une clé secrète. Les requêtes vers la base sont écrites de façon à empêcher l'injection de code.</p>
+      <p>Aucun système n'est infaillible. Si une faille venait à toucher vos données et à présenter un risque pour vous, nous vous en informerions, et nous la signalerions à la CNIL dans les délais prévus par le règlement.</p>
     </div>
 
     <div class="legal-section">
-      <h2>Article 8. Modifications</h2>
-      <p>Nous nous réservons le droit de modifier la présente politique de confidentialité à tout moment. Les changements prendront effet immédiatement après leur publication sur le site.</p>
+      <h2>8. Vos droits</h2>
+      <p>Le règlement général sur la protection des données vous reconnaît plusieurs droits sur vos informations :</p>
+      <ul>
+        <li><strong>Accès</strong> : savoir si nous détenons des données sur vous et en obtenir une copie.</li>
+        <li><strong>Rectification</strong> : faire corriger ce qui est inexact ou incomplet.</li>
+        <li><strong>Effacement</strong> : demander la suppression de vos données, sauf lorsque la loi nous impose de les conserver.</li>
+        <li><strong>Limitation</strong> : demander le gel d'un traitement le temps qu'une contestation soit examinée.</li>
+        <li><strong>Opposition</strong> : vous opposer à un traitement fondé sur notre intérêt légitime, pour des raisons tenant à votre situation.</li>
+        <li><strong>Portabilité</strong> : recevoir les données que vous nous avez fournies dans un format lisible par machine.</li>
+      </ul>
+      <p>Pour exercer l'un de ces droits, écrivez à <a href="mailto:escape-game@lesportesdelisba.fr">escape-game@lesportesdelisba.fr</a> ou au siège. Nous vous répondons dans un délai d'un mois. Si nous avons un doute sérieux sur votre identité, nous pouvons vous demander un justificatif, uniquement dans ce cas.</p>
+      <p>Si notre réponse ne vous satisfait pas, vous pouvez saisir la Commission nationale de l'informatique et des libertés, 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07, ou déposer une plainte sur <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">cnil.fr</a>.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>9. Mineurs</h2>
+      <p>Les réservations sont faites par des adultes. Les conditions d'accueil des mineurs dans les salles sont détaillées dans nos <a href="cgv.html">conditions générales de vente</a>. Nous ne recueillons pas sciemment de données auprès d'un enfant par l'intermédiaire du site. Si vous constatez le contraire, signalez-le nous et nous les supprimerons.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>10. Photographies</h2>
+      <p>Des photos d'équipe peuvent être prises avant ou après une session, et publiées sur notre site ou nos réseaux sociaux. Elles ne le sont qu'avec votre accord, demandé sur place, et vous pouvez le refuser sans que cela change quoi que ce soit à votre partie. Vous pouvez aussi nous demander le retrait d'une photo déjà publiée.</p>
+    </div>
+
+    <div class="legal-section">
+      <h2>11. Modifications</h2>
+      <p>Cette politique peut évoluer, notamment si nous changeons de prestataire technique ou si nous ajoutons un service. La date de dernière mise à jour figure en haut de cette page. En cas de changement important dans la façon dont vos données sont utilisées, nous en informons les personnes concernées.</p>
     </div>
 
     <div style="margin-top:40px;padding:20px;background:var(--bg-card);border:1px solid var(--border-dim);border-radius:var(--radius-lg);">
-      <p style="font-size:.8rem;color:var(--text-muted);">Pour toute question, contactez notre responsable des données à <a href="mailto:escape-game@lesportesdelisba.fr" style="color:var(--gold);">escape-game@lesportesdelisba.fr</a> ou par courrier : Les Portes de l'Isba, 1 route de Cupigny, 10150 Creney-près-Troyes, France.</p>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.7;">
+        Une question sur vos données, une demande de suppression, un doute sur un message reçu ?
+        Écrivez-nous à <a href="mailto:escape-game@lesportesdelisba.fr" style="color:var(--gold);">escape-game@lesportesdelisba.fr</a>
+        ou par courrier : Les Portes de l'Isba, 1 route de Cupigny, 10150 Creney-près-Troyes.
+      </p>
     </div>
 
   </div>

@@ -355,6 +355,27 @@ document.addEventListener('DOMContentLoaded', () => {
     else img.addEventListener('error', () => appliquerFallback(img));
   });
 
+  /* ---- Carte Google Maps sur demande ----
+     L'iframe n'est creee qu'au clic : tant que le visiteur ne la demande pas, son
+     navigateur ne contacte jamais Google. C'est ce qui evite d'avoir a lui demander
+     son consentement au chargement de la page. */
+  const carteBouton = document.getElementById('carte-afficher');
+  if (carteBouton) {
+    carteBouton.addEventListener('click', () => {
+      const bloc = document.getElementById('carte');
+      const cadre = document.createElement('iframe');
+      cadre.src = 'https://maps.google.com/maps?q=1+Route+de+Cupigny%2C+10150+Creney-pr%C3%A8s-Troyes%2C+France&output=embed&hl=fr&z=15';
+      cadre.width = '100%';
+      cadre.height = '220';
+      cadre.loading = 'lazy';
+      cadre.referrerPolicy = 'no-referrer-when-downgrade';
+      cadre.title = 'Localisation Les Portes de l Isba';
+      cadre.allowFullscreen = true;
+      bloc.replaceChildren(cadre);
+      bloc.classList.add('carte-bloc--chargee');
+    });
+  }
+
   /* ---- Liens hover (remplace les onmouseover/onmouseout inline) ---- */
   document.querySelectorAll('[data-hover-color]').forEach(el => {
     const original = el.dataset.hoverColor;
