@@ -43,7 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sans config chargee, on ne peut rien affirmer sur les jours de fermeture.
     if (!config) return '';
     if (!IsbaHoraires.plageDuJour(config, jour)) {
-      return 'L’Isba est fermée ce jour-là. Choisissez une autre date.';
+      // On rappelle quand venir plutot que de dire seulement non : le visiteur
+      // n'a pas a aller chercher les horaires sur une autre page.
+      var quand = IsbaHoraires.phraseOuverture(config);
+      return quand
+        ? 'L’Isba est fermée ce jour-là. Nous accueillons les groupes '
+          + quand + '.'
+        : 'L’Isba est fermée ce jour-là. Choisissez une autre date.';
     }
     return '';
   }

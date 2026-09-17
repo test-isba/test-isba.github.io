@@ -88,6 +88,49 @@
     return heureEnTexte(h).replace('h', ':');
   }
 
+  var NOMS_JOURS  = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+  var NOMS_COURTS = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+
+  // Regroupe les jours ouverts qui partagent les memes horaires, dans l'ordre
+  // lundi -> dimanche. Evite d'ecrire « lundi de 9h30 a 23h, jeudi de 9h30 a 23h... ».
+  // Retourne [{ jours: [jourJs...], ouvre, ferme }] ou null sans config.
+  function groupesOuverture(config, categorie) {
+    var semaine = semaineOuverte(config, categorie);
+    if (!semaine) return null;
+
+    var groupes = [];
+    for (var i = 0; i < semaine.length; i++) {
+      var j = semaine[i];
+      var dernier = groupes[groupes.length - 1];
+      if (dernier && dernier.ouvre === j.ouvre && dernier.ferme === j.ferme) {
+        dernier.jours.push(j.jourJs);
+      } else {
+        groupes.push({ jours: [j.jourJs], ouvre: j.ouvre, ferme: j.ferme });
+      }
+    }
+    return groupes;
+  }
+
+  // ['lundi','jeudi','vendredi'] -> "lundi, jeudi et vendredi"
+  function listeFr(mots) {
+    if (!mots.length) return '';
+    if (mots.length === 1) return mots[0];
+    return mots.slice(0, -1).join(', ') + ' et ' + mots[mots.length - 1];
+  }
+
+  // Phrase lisible des jours et heures d'ouverture, pour rappeler au visiteur
+  // quand venir plutot que de lui dire seulement « non ».
+  // Ex : "lundi, jeudi, vendredi, samedi et dimanche de 09h30 a 23h00"
+  function phraseOuverture(config, categorie) {
+    var groupes = groupesOuverture(config, categorie);
+    if (!groupes || !groupes.length) return '';
+    return groupes.map(function (g) {
+      var jours = listeFr(g.jours.map(function (d) { return NOMS_JOURS[d]; }));
+      if (g.ferme === null) return jours + ' a partir de ' + heureEnTexte(g.ouvre);
+      return jours + ' de ' + heureEnTexte(g.ouvre) + ' à ' + heureEnTexte(g.ferme);
+    }).join(' ; ');
+  }
+
   // Chargement de la config du site. Retourne null si le fichier est injoignable :
   // les pages doivent rester utilisables sans lui.
   // Le cache est court-circuite (parametre ?v= et no-store) : sinon un visiteur peut
@@ -99,6 +142,7 @@
   }
 
   global.IsbaHoraires = { parseHeure, cfgIndex, dateDepuisIso, isoDepuisDate, plageDuJour,
-                          semaineOuverte, heureEnTexte, heureEnIso, chargerConfig };
+                          semaineOuverte, groupesOuverture, phraseOuverture, listeFr,
+                          heureEnTexte, heureEnIso, NOMS_JOURS, NOMS_COURTS, chargerConfig };
 
 })(window);

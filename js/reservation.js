@@ -108,7 +108,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // demande à trier à la main qu'un visiteur bloqué.
     const plage = config ? IsbaHoraires.plageDuJour(config, jour) : { ouvre: 0, ferme: null };
     if (!plage) {
-      note.textContent = "L'Isba est fermée ce jour-là. Choisissez une autre date.";
+      // On rappelle les jours d'ouverture : sinon le visiteur essaie les dates
+      // au hasard jusqu'a en trouver une qui passe.
+      const quand = config ? IsbaHoraires.phraseOuverture(config) : '';
+      note.textContent = quand
+        ? "L'Isba est fermée ce jour-là. Nous sommes ouverts " + quand + "."
+        : "L'Isba est fermée ce jour-là. Choisissez une autre date.";
       return;
     }
 

@@ -305,6 +305,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /* ---- Horaires de la page contact ----
+     Ils etaient ecrits en dur dans le HTML, et cette page ne charge pas
+     from-config.js : ils auraient donc menti des que le client change ses horaires
+     dans Isba Admin. Le HTML garde les valeurs actuelles en repli, remplacees ici
+     des que config.json est lu. */
+  const blocInt = document.getElementById('contact-horaires-int');
+  const blocExt = document.getElementById('contact-horaires-ext');
+  if ((blocInt || blocExt) && window.IsbaHoraires) {
+    IsbaHoraires.chargerConfig().then(config => {
+      if (!config) return;
+
+      const remplir = (cible, categorie) => {
+        if (!cible) return;
+        const groupes = IsbaHoraires.groupesOuverture(config, categorie);
+        if (!groupes) return;
+
+        const lignes = groupes.map(g => {
+          const jours = g.jours.map(d => IsbaHoraires.NOMS_COURTS[d]).join(', ');
+          const heures = g.ferme === null
+            ? 'à partir de ' + IsbaHoraires.heureEnTexte(g.ouvre)
+            : IsbaHoraires.heureEnTexte(g.ouvre) + ' – ' + IsbaHoraires.heureEnTexte(g.ferme);
+          return jours + ' : ' + heures;
+        });
+
+        // Les jours absents des groupes sont les jours de fermeture
+        const ouverts = new Set(groupes.flatMap(g => g.jours));
+        const fermes = [1, 2, 3, 4, 5, 6, 0]
+          .filter(d => !ouverts.has(d))
+          .map(d => IsbaHoraires.NOMS_COURTS[d]);
+        if (fermes.length) lignes.push(fermes.join(', ') + ' : Fermé');
+
+        cible.replaceChildren(...lignes.map(t => {
+          const p = document.createElement('p');
+          p.textContent = t;
+          return p;
+        }));
+      };
+
+      remplir(blocInt, 'interieures');
+      remplir(blocExt, 'exterieures');
+    });
+  }
+
   /* ---- Lightbox ---- */
   const lbTriggers = document.querySelectorAll('[data-lightbox]');
   if (lbTriggers.length) {
