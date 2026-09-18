@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const offset = 80;
         const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top, behavior: 'smooth' });
+        window.scrollTo({ top, behavior: window.IsbaMotion.comportement() });
       }
     });
   });
@@ -222,8 +222,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---- Parallaxe hero ---- */
+  // Le contenu qui glisse à contre-sens du scroll est exactement ce que la préférence
+  // « réduire les animations » demande d'éviter : on ne branche même pas l'écouteur.
   const heroContent = document.querySelector('.hero-content');
-  if (heroContent) {
+  if (heroContent && !window.IsbaMotion.reduit()) {
     window.addEventListener('scroll', () => {
       heroContent.style.transform = 'translateY(' + (window.scrollY * 0.13) + 'px)';
     }, { passive: true });
@@ -231,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---- Particules hero ---- */
   const heroSection = document.querySelector('.hero');
-  if (heroSection && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (heroSection && !window.IsbaMotion.reduit()) {
     for (let i = 0; i < 28; i++) {
       const p = document.createElement('div');
       p.className = 'hero-particle';

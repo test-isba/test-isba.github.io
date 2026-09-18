@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           ? 'background:rgba(200,60,60,.12);border:1px solid rgba(200,60,60,.4);color:#e0a0a0;'
           : 'background:var(--gold-bg);border:1px solid var(--border);color:var(--text);');
     el.innerHTML = texte;
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.scrollIntoView({ behavior: window.IsbaMotion.comportement(), block: 'center' });
   }
 
   // Soumission : envoi réel à l'API. Le créneau se bloque côté serveur.
@@ -241,13 +241,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const room = document.querySelector('input[name="res-room"]:checked');
       if (!room) {
         alert("Choisissez d'abord votre aventure (étape 1).");
-        document.querySelector('.room-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.querySelector('.room-card')?.scrollIntoView({ behavior: window.IsbaMotion.comportement(), block: 'center' });
         return;
       }
       const time = creneauChoisi();
       if (!time) {
         alert('Choisissez un créneau horaire (étape 2).');
-        document.getElementById('res-slots')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.getElementById('res-slots')?.scrollIntoView({ behavior: window.IsbaMotion.comportement(), block: 'center' });
         return;
       }
 

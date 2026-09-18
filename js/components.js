@@ -1,6 +1,26 @@
 'use strict';
 
 /* ============================================================
+   Les Portes de l'Isba — Préférence « réduire les animations »
+   ------------------------------------------------------------
+   Le CSS gère les animations et les transitions (voir le bloc
+   @media (prefers-reduced-motion: reduce) de style.css), mais il ne peut rien
+   contre le mouvement déclenché en JavaScript : un scroll lancé avec
+   behavior: 'smooth' ignore scroll-behavior, et une parallaxe est un calcul.
+   Ce module donne la réponse aux trois fichiers qui en ont besoin.
+   La préférence est relue à chaque appel : elle peut changer sans rechargement.
+   ============================================================ */
+window.IsbaMotion = {
+  reduit: function () {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  },
+  // À passer à scrollTo / scrollIntoView : 'auto' saute directement à la cible.
+  comportement: function () {
+    return window.IsbaMotion.reduit() ? 'auto' : 'smooth';
+  }
+};
+
+/* ============================================================
    Les Portes de l'Isba — Loader de page
    ============================================================ */
 (function () {
@@ -202,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btt.setAttribute('aria-label', 'Retour en haut');
   btt.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>';
   document.body.appendChild(btt);
-  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: window.IsbaMotion.comportement() }));
   window.addEventListener('scroll', () => {
     btt.classList.toggle('visible', window.scrollY > 400);
   }, { passive: true });
@@ -219,6 +239,8 @@ document.addEventListener('DOMContentLoaded', () => {
         href.startsWith('tel:') || href.startsWith('http') ||
         href.startsWith('//') || link.target === '_blank') return;
     e.preventDefault();
+    // Mouvement réduit : le fondu deviendrait un écran noir de 330 ms, pire que rien.
+    if (window.IsbaMotion.reduit()) { window.location.href = href; return; }
     pt.classList.add('active');
     setTimeout(() => { window.location.href = href; }, 330);
   });

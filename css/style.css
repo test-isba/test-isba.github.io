@@ -1594,3 +1594,40 @@ section { padding: 96px 0; }
   #mobile-sticky-cta { display: block; }
   body { padding-bottom: 68px; }
 }
+
+/* ---- MOUVEMENT RÉDUIT ----
+   Quelqu'un qui a coché « réduire les animations » dans son système ne doit plus subir
+   les boucles du site (shimmer des titres, glow du bouton, respiration du hero, point
+   clignotant du badge, flèche du hero).
+   On écrase les durées au lieu de supprimer les animations : celles qui posent l'état
+   final d'un élément (barre du loader, apparition du texte du loader et du badge)
+   sautent à leur fin au lieu de rester bloquées à leur état de départ, où l'élément
+   est invisible ou large de 0. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  html { scroll-behavior: auto; }
+
+  /* Le dégradé animé du titre laisse une moitié de dégradé figée une fois arrêté.
+     On revient au doré plein déjà déclaré plus haut sur .section-header h2. */
+  .section-header h2 {
+    background: none;
+    -webkit-text-fill-color: var(--gold);
+  }
+
+  /* Les blocs révélés au scroll restent visibles : l'observateur est bidirectionnel,
+     sans ça le contenu clignoterait à chaque entrée et sortie de l'écran. */
+  .reveal,
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
