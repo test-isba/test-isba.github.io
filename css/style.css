@@ -1404,7 +1404,10 @@ section { padding: 96px 0; }
   margin-bottom: 20px;
   background: var(--bg-card);
 }
-.carte-bloc iframe { border: 0; display: block; filter: brightness(0.9) saturate(0.85); }
+/* Carte en couleurs : le filtre qui la desaturait pour l'accorder au theme sombre
+   la faisait passer pour une carte en noir et blanc, et les reperes (routes,
+   verdure, eau) se distinguaient mal. */
+.carte-bloc iframe { border: 0; display: block; }
 .carte-invite {
   min-height: 220px;
   padding: 24px;
