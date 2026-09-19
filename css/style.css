@@ -1200,22 +1200,6 @@ section { padding: 96px 0; }
   visibility: hidden;
   pointer-events: none;
 }
-.loader-icon {
-  color: var(--gold);
-  animation: loader-pulse 2s ease-in-out infinite;
-}
-@keyframes loader-pulse {
-  0%, 100% {
-    filter: drop-shadow(0 0 5px rgba(189,138,30,.35));
-    opacity: .7;
-    transform: scale(1) rotate(-45deg);
-  }
-  50% {
-    filter: drop-shadow(0 0 18px rgba(189,138,30,.85));
-    opacity: 1;
-    transform: scale(1.08) rotate(-45deg);
-  }
-}
 .loader-text {
   display: flex;
   flex-direction: column;
