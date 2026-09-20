@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow:
 
-Sitemap: https://lesportesdelisba.fr/sitemap.xml
+Sitemap: https://test-isba.github.io/sitemap.xml
