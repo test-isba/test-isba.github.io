@@ -146,22 +146,22 @@
       <form id="devis-form">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Prénom *</label>
-            <input type="text" name="prenom" class="form-input" placeholder="Jean" required>
+            <label class="form-label" for="devis-prenom">Prénom *</label>
+            <input id="devis-prenom" type="text" name="prenom" class="form-input" placeholder="Jean" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Nom *</label>
-            <input type="text" name="nom" class="form-input" placeholder="Dupont" required>
+            <label class="form-label" for="devis-nom">Nom *</label>
+            <input id="devis-nom" type="text" name="nom" class="form-input" placeholder="Dupont" required>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Entreprise *</label>
-            <input type="text" name="entreprise" class="form-input" placeholder="Acme Corp" required>
+            <label class="form-label" for="devis-entreprise">Entreprise *</label>
+            <input id="devis-entreprise" type="text" name="entreprise" class="form-input" placeholder="Acme Corp" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Effectif *</label>
-            <select name="effectif" class="form-select" required>
+            <label class="form-label" for="devis-effectif">Effectif *</label>
+            <select id="devis-effectif" name="effectif" class="form-select" required>
               <option value="">Nombre de participants</option>
               <option>Moins de 10 personnes</option>
               <option>10 à 20 personnes</option>
@@ -172,12 +172,12 @@
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Email *</label>
-            <input type="email" name="email" class="form-input" placeholder="jean.dupont@acme.fr" required>
+            <label class="form-label" for="devis-email">Email *</label>
+            <input id="devis-email" type="email" name="email" class="form-input" placeholder="jean.dupont@acme.fr" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Téléphone</label>
-            <input type="tel" name="telephone" class="form-input" placeholder="06 12 34 56 78">
+            <label class="form-label" for="devis-telephone">Téléphone</label>
+            <input id="devis-telephone" type="tel" name="telephone" class="form-input" placeholder="06 12 34 56 78">
           </div>
         </div>
         <div class="form-group">
@@ -187,8 +187,8 @@
           <p class="form-note" id="devis-date-note" role="status" aria-live="polite"></p>
         </div>
         <div class="form-group">
-          <label class="form-label">Vos besoins</label>
-          <textarea name="message" class="form-textarea" placeholder="Objectifs, contraintes, formule souhaitée..."></textarea>
+          <label class="form-label" for="devis-message">Vos besoins</label>
+          <textarea id="devis-message" name="message" class="form-textarea" placeholder="Objectifs, contraintes, formule souhaitée..."></textarea>
         </div>
         <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">
           Envoyer la demande

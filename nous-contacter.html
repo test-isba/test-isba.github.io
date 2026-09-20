@@ -116,25 +116,25 @@
           <form id="contact-form">
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">Prénom *</label>
-                <input type="text" name="prenom" class="form-input" placeholder="Jean" required>
+                <label class="form-label" for="contact-prenom">Prénom *</label>
+                <input id="contact-prenom" type="text" name="prenom" class="form-input" placeholder="Jean" required>
               </div>
               <div class="form-group">
-                <label class="form-label">Nom *</label>
-                <input type="text" name="nom" class="form-input" placeholder="Dupont" required>
+                <label class="form-label" for="contact-nom">Nom *</label>
+                <input id="contact-nom" type="text" name="nom" class="form-input" placeholder="Dupont" required>
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label">Email *</label>
-              <input type="email" name="email" class="form-input" placeholder="jean.dupont@email.fr" required>
+              <label class="form-label" for="contact-email">Email *</label>
+              <input id="contact-email" type="email" name="email" class="form-input" placeholder="jean.dupont@email.fr" required>
             </div>
             <div class="form-group">
-              <label class="form-label">Téléphone</label>
-              <input type="tel" name="telephone" class="form-input" placeholder="06 12 34 56 78">
+              <label class="form-label" for="contact-telephone">Téléphone</label>
+              <input id="contact-telephone" type="tel" name="telephone" class="form-input" placeholder="06 12 34 56 78">
             </div>
             <div class="form-group">
-              <label class="form-label">Sujet *</label>
-              <select name="sujet" class="form-select" required>
+              <label class="form-label" for="contact-sujet">Sujet *</label>
+              <select id="contact-sujet" name="sujet" class="form-select" required>
                 <option value="">Sélectionnez un sujet</option>
                 <option>Question générale</option>
                 <option>Réservation / disponibilités</option>
@@ -145,8 +145,8 @@
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Message *</label>
-              <textarea name="message" class="form-textarea" placeholder="Décrivez votre demande..." required></textarea>
+              <label class="form-label" for="contact-message">Message *</label>
+              <textarea id="contact-message" name="message" class="form-textarea" placeholder="Décrivez votre demande..." required></textarea>
             </div>
             <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">
               Envoyer le message
