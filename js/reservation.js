@@ -303,8 +303,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       renderCreneaux();
       bouton.disabled = true;
       messageResa('<strong>Demande enregistrée.</strong> Le créneau vous est réservé. '
-        + 'Vous allez recevoir un email récapitulatif, et l\'Isba confirme votre venue '
-        + 'sous 24h. Le règlement se fait sur place.');
+        + 'Votre venue sera confirmée sous 24h, par email ou par téléphone. '
+        + 'Le règlement se fait sur place.');
     });
   }
 
