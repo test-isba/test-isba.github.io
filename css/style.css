@@ -664,6 +664,12 @@ section { padding: 96px 0; }
   border-bottom: 1px solid var(--border-dim);
 }
 .faq-question {
+  /* Vrai <button> : un lecteur d'ecran l'annonce comme tel et le clavier l'active.
+     Les styles par defaut du bouton sont remis a zero pour que le rendu ne bouge pas. */
+  width: 100%;
+  background: none;
+  border: 0;
+  text-align: left;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1577,6 +1583,19 @@ section { padding: 96px 0; }
 @media (max-width: 768px) {
   #mobile-sticky-cta { display: block; }
   body { padding-bottom: 68px; }
+}
+
+/* ---- FOCUS CLAVIER ----
+   Le site n'avait aucune regle de focus : un visiteur au clavier devait deviner
+   ou il se trouvait, le contour par defaut du navigateur se voyant mal sur ce fond
+   sombre. `:focus-visible` n'apparait qu'au clavier, jamais au clic a la souris. */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible,
+.faq-question:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 /* ---- MOUVEMENT RÉDUIT ----

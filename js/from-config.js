@@ -124,10 +124,10 @@
       <div style="margin-bottom:48px;" class="reveal visible">
         ${cat.questions.map(q => `
           <div class="faq-item">
-            <div class="faq-question">
+            <button type="button" class="faq-question" aria-expanded="false">
               ${q.question}
-              <div class="faq-icon">+</div>
-            </div>
+              <span class="faq-icon">+</span>
+            </button>
             <div class="faq-answer">
               <div class="faq-answer-inner">${q.reponse}</div>
             </div>
@@ -138,8 +138,15 @@
       q.addEventListener('click', () => {
         const item   = q.closest('.faq-item');
         const isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-        if (!isOpen) item.classList.add('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => {
+          i.classList.remove('open');
+          const autre = i.querySelector('.faq-question');
+          if (autre) autre.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          q.setAttribute('aria-expanded', 'true');
+        }
       });
     });
   }
