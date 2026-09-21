@@ -362,10 +362,21 @@ document.addEventListener('DOMContentLoaded', () => {
   if (lbTriggers.length) {
     const lb      = document.createElement('div');
     lb.id = 'lightbox';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Galerie photo');
     const lbImg   = document.createElement('img'); lbImg.id = 'lightbox-img';
-    const lbClose = document.createElement('div'); lbClose.id = 'lightbox-close'; lbClose.textContent = '×';
-    const lbPrev  = document.createElement('div'); lbPrev.id  = 'lightbox-prev';  lbPrev.className = 'lightbox-nav'; lbPrev.innerHTML = '&#8249;';
-    const lbNext  = document.createElement('div'); lbNext.id  = 'lightbox-next';  lbNext.className = 'lightbox-nav'; lbNext.innerHTML = '&#8250;';
+    // Vrais boutons : atteignables au clavier et annonces comme tels.
+    const bouton = (id, classe, html, libelle) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.id = id; b.innerHTML = html;
+      b.setAttribute('aria-label', libelle);
+      if (classe) b.className = classe;
+      return b;
+    };
+    const lbClose = bouton('lightbox-close', '', '&times;', 'Fermer');
+    const lbPrev  = bouton('lightbox-prev', 'lightbox-nav', '&#8249;', 'Image precedente');
+    const lbNext  = bouton('lightbox-next', 'lightbox-nav', '&#8250;', 'Image suivante');
     const lbCap   = document.createElement('div'); lbCap.id   = 'lightbox-caption';
     lb.append(lbClose, lbPrev, lbImg, lbNext, lbCap);
     document.body.appendChild(lb);
@@ -373,6 +384,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Liste recalculée à chaque ouverture : une image introuvable est retirée de la page (voir fallback plus bas)
     let images = [];
     let current = 0;
+    let declencheur = null;
+
+    function donnerLeFocus() {
+      let fait = false;
+      const poser = () => {
+        if (fait || !lb.classList.contains('open')) return;
+        fait = true;
+        lbClose.focus();
+      };
+      lb.addEventListener('transitionend', poser, { once: true });
+      setTimeout(poser, 400);
+    }
 
     function openLb(idx) {
       current = idx;
@@ -382,14 +405,34 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = 'hidden';
       lbPrev.style.display = images.length > 1 ? '' : 'none';
       lbNext.style.display = images.length > 1 ? '' : 'none';
+      // `#lightbox` passe de visibility:hidden a visible avec une transition : tant
+      // qu'elle dure, l'element reste inatteignable et le focus est refuse en silence.
+      // On attend donc la fin de la transition, avec un filet au cas ou elle n'aurait
+      // pas lieu. Sans cela le clavier continue de parcourir la page derriere.
+      donnerLeFocus();
     }
-    function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+    function closeLb() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      // On rend le focus a l'image d'ou l'on venait, sinon il repart en haut de page
+      if (declencheur && declencheur.isConnected) declencheur.focus();
+    }
 
     lbTriggers.forEach(img => {
       img.classList.add('lightbox-trigger');
-      img.addEventListener('click', () => {
+      // Une <img> n'est ni focusable ni activable : sans ceci la galerie est
+      // inaccessible au clavier.
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', 'Agrandir : ' + (img.alt || 'photo'));
+      const ouvrir = () => {
+        declencheur = img;
         images = Array.from(lbTriggers).filter(el => el.isConnected);
         openLb(images.indexOf(img));
+      };
+      img.addEventListener('click', ouvrir);
+      img.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ouvrir(); }
       });
     });
     lbClose.addEventListener('click', closeLb);

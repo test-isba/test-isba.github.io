@@ -1485,6 +1485,15 @@ section { padding: 96px 0; }
   cursor: default;
 }
 #lightbox.open #lightbox-img { transform: scale(1); }
+/* Les commandes de la visionneuse sont des <button> : on neutralise les styles
+   par defaut du navigateur pour que le rendu reste identique. */
+#lightbox-close,
+.lightbox-nav {
+  background: none;
+  border: 0;
+  font-family: inherit;
+  padding: 0;
+}
 #lightbox-close {
   position: absolute;
   top: 20px; right: 24px;
