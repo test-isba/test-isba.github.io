@@ -1,5 +1,6 @@
+# Site de demonstration, non publie.
+# Il porte la marque Les Portes de l'Isba, qui ne nous appartient pas : il ne doit
+# etre accessible que par lien direct, jamais par un moteur de recherche.
+# A rouvrir le jour d'une mise en ligne acceptee par le client.
 User-agent: *
-Allow: /
-Disallow:
-
-Sitemap: https://test-isba.github.io/sitemap.xml
+Disallow: /
