@@ -131,6 +131,31 @@
       "duree": "Saisonnier · Hiver",
       "difficulte": "2/5",
       "ageMin": "Tout public"
+    },
+    {
+      "id": "une-vie-de-pas-chat",
+      "nom": "Une vie de pas chat",
+      "type": "Salle permanente",
+      "tagline": "Et si la Baba Yaga exauçait votre vœu ?",
+      "description1": "Vous rêviez d'une vie sans corvées, sans horaires et sans obligations. La Baba Yaga a entendu votre souhait, et elle l'a exaucé à sa façon.",
+      "description2": "Vous voilà couvert de poils, les moustaches au vent. Reste à comprendre ce que vous avez signé, et à retrouver votre forme d'origine avant la fin de l'heure.",
+      "joueurs": "2 à 6 joueurs",
+      "duree": "60 minutes",
+      "difficulte": "À confirmer",
+      "ageMin": "À confirmer"
+    },
+    {
+      "id": "baba-surprise",
+      "nom": "Baba Surprise",
+      "type": "Bientôt disponible",
+      "tagline": "La quatrième porte n'a pas encore livré son secret.",
+      "description1": "Une nouvelle porte est en cours de création. Ce sera la première salle temporaire de l'Isba, celle qui se cache derrière la quatrième porte.",
+      "description2": "Elle ouvrira prochainement. Les détails et l'ouverture des réservations seront annoncés à ce moment-là.",
+      "joueurs": "2 à 6 joueurs",
+      "duree": "60 minutes",
+      "difficulte": "À venir",
+      "ageMin": "À venir",
+      "reservable": false
     }
   ],
   "faq": [
